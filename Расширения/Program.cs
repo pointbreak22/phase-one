@@ -11,7 +11,7 @@ namespace Расширения
             Console.WriteLine("Вывод 5 секунд: "+5.Seconds());
             Console.WriteLine("Вывод 5 минут: " + 5.Hours());
             Console.WriteLine("Вывод 5 дней: " + 5.Days());
-           
+            Console.ReadLine();
             
 
             
@@ -36,7 +36,7 @@ namespace Расширения
         {
             if (k == null) throw new ArgumentNullException(nameof(k));
 
-            return new TimeSpan(k, 0, 0);
+            return new TimeSpan(k, 0, 0, 0);
         }
         
            

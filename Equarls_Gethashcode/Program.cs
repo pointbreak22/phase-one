@@ -7,9 +7,9 @@ namespace Equarls_Gethashcode
         static void Main(string[] args)
         {
 
-           Person p1 = new Person { fio = "f1", date =DateTime.Today, mesto_rozhdeniya="d4", number=5 };
-           Person p2 = new Person { fio = "f1", date = DateTime.Today, mesto_rozhdeniya = "d4", number = 5 };
-           Person p3 = new Person { fio = "f2", date = DateTime.Today, mesto_rozhdeniya = "d4", number = 6 };
+           Person p1 = new Person {Fio = "f1", Date =DateTime.Today, Place_of_birt="d4", Passport_number=5 };
+           Person p2 = new Person {Fio = "f1", Date = DateTime.Today, Place_of_birt = "d4"};
+           Person p3 = new Person {Fio = "f2", Date = DateTime.Today, Place_of_birt = "d4", Passport_number = 6 };
 
             Console.WriteLine(p1.Equals(p2));
             Console.WriteLine(p1.Equals(p3));
@@ -21,12 +21,13 @@ namespace Equarls_Gethashcode
 
     public class Person
     {
-        public string fio { get; set; }
-        public DateTime date { get; set; }
-        public string mesto_rozhdeniya { get; set; }
-        public int number { get; set; }
+        public string Fio { get; set; }
+        public DateTime Date { get; set; }
+        public string Place_of_birt { get; set; }
+        public int Passport_number { get; set; }
+     //   public string Place_of_work { get; set; }
 
-      
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -35,11 +36,11 @@ namespace Equarls_Gethashcode
                 return false;
             var pr = (Person)obj;
 
-            return pr.fio == fio && pr.date == date && pr.mesto_rozhdeniya == mesto_rozhdeniya && pr.number == number;
+            return pr.Fio == Fio && pr.Date == Date && pr.Place_of_birt == Place_of_birt;
         }
         public override int GetHashCode()
         {
-            return (fio + date.ToString() + mesto_rozhdeniya + number.ToString()).GetHashCode();
+            return (Fio + Date.ToString() + Place_of_birt + Passport_number.ToString()).GetHashCode();
         }
 }
 

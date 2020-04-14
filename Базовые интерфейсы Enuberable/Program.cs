@@ -17,8 +17,15 @@ namespace Базовые_интерфейсы_Enuberable
                     Console.Write(m+" ");
                 }
                 Console.WriteLine("\n");
+              
 
-
+            }
+            Console.WriteLine("Через while");
+            machines.Flag_vibora_machines = 1;
+            var while_enum = machines.GetEnumerator();
+            while (while_enum.MoveNext())
+            {
+                Console.WriteLine(while_enum.Current);
             }
             Console.Read();
         }

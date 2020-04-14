@@ -11,9 +11,7 @@ namespace Сериализация
     public class Radio
     {
         public bool HasTweeters { get; set; }
-
         public bool HasSubWoofers { get; set; }
-
         public double[] StationPresets { get; set; }
         [NonSerialized]
         public string radioID = "XF-552RF6";
@@ -61,7 +59,7 @@ namespace Сериализация
             using (Stream fStream = File.OpenRead(fileName))
             {
                 JamesBondClass carFromDisk = (JamesBondClass)binFormat.Deserialize(fStream);
-                Console.WriteLine(carFromDisk.CanFly.ToString()+" "+ carFromDisk.CanSubmerge.ToString() + " " + carFromDisk.TheRadio.StationPresets[0]);
+                Console.WriteLine("Вывод при изьятии из файла "+ carFromDisk.CanFly.ToString()+" "+ carFromDisk.CanSubmerge.ToString() + " " + carFromDisk.TheRadio.StationPresets[0]);
            
             }
         }

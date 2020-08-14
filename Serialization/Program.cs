@@ -4,32 +4,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Xml.Serialization;
 
-
 namespace Serialization
-{
-    [Serializable]
-    public class Radio
-    {
-        public bool HasTweeters { get; set; }
-        public bool HasSubWoofers { get; set; }
-        public double[] StationPresets { get; set; }
-        [NonSerialized]
-        public string radioID = "XF-552RF6";
-    }
-    [Serializable]
-    public class Car
-    {
-        public Radio TheRadio { get; set; }
-        public bool IsHatchBack { get; set; }
-    }
-
-    [Serializable]
-    public class JamesBondClass : Car
-    {
-        public bool CanFly { get; set; }
-        public bool CanSubmerge { get; set; }
-    }
-
+{  
     class Program
     {
         static void Main()

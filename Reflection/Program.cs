@@ -4,49 +4,29 @@ using System.Reflection;
 
 namespace Reflection
 {
-    public class User
+    class Program
     {
-        private int type = 10;
-        private int type2 = 15;
-        public string NamePeaple { get; set; }
-        private string NamePeaple2 { get; set; }
-        public int Age { get; set; }
-        public User(string n, int a)
+        public static string PrintObjectProperties(object ob) //Рефлексия
         {
-            NamePeaple = n;
-            Age = a;
+            if (ob == null) throw new ArgumentNullException(nameof(ob));
+            var gettype = ob.GetType(); // получаем тип   
+            Console.WriteLine("Обьект: " + gettype);
+            var getproperties = gettype.GetProperties(BindingFlags.Public | BindingFlags.Instance); //  получаем все свойства, не статические (noтpublick на приваченные)        
+            var valuesproperties = getproperties.Select(x => $"{x.Name} : {x.GetValue(ob)}"); // перебираем все  свойства и описываем формат сохранения в строку
+            var getfields = gettype.GetFields(BindingFlags.NonPublic | BindingFlags.Instance); //получаем все не публичные поля
+            var valuesfields = getfields.Select(x => $"{x.Name} : {x.GetValue(ob)}");
+            var getmethods = gettype.GetMethods(); //получение методов
+            var valuesmethods = getmethods.Select(x => $"{x.Name} -тип метода> {x.ReturnType.Name}");
+            var getconstructors = gettype.GetConstructors(); //получение конструкторов
+            var valuesconstructors = getconstructors.Select(x => $" \n {x.Name} - параметры: {string.Join(",", x.GetParameters().Select(y => $"{y.ParameterType.Name}-{y.Name}"))}");
+            return "Cвойства: " + string.Join(", \n", valuesproperties) + "\n Поля: " + string.Join(", \n", valuesfields) + "\n Методы: " + string.Join(", \n", valuesmethods) + "\n Конструкторы: " + string.Join(", \n", valuesconstructors); // формируем строку
         }
-        public void Display()
+        static void Main(string[] args)
         {
-            Console.WriteLine($"Имя: {NamePeaple}  Возраст: {Age}");
-        }
-        public int Payment(int hours, int perhour)
-        {
-            return hours * perhour;
-        }
-        class Program
-        {
-            public static string PrintObjectProperties(object ob) //Рефлексия
-            {
-                if (ob == null) throw new ArgumentNullException(nameof(ob));
-                var gettype = ob.GetType(); // получаем тип   
-                Console.WriteLine("Обьект: " + gettype);
-                var getproperties = gettype.GetProperties(BindingFlags.Public | BindingFlags.Instance); //  получаем все свойства, не статические (noтpublick на приваченные)        
-                var valuesproperties = getproperties.Select(x => $"{x.Name} : {x.GetValue(ob)}"); // перебираем все  свойства и описываем формат сохранения в строку
-                var getfields = gettype.GetFields(BindingFlags.NonPublic | BindingFlags.Instance); //получаем все не публичные поля
-                var valuesfields = getfields.Select(x => $"{x.Name} : {x.GetValue(ob)}");
-                var getmethods = gettype.GetMethods(); //получение методов
-                var valuesmethods = getmethods.Select(x => $"{x.Name} -тип метода> {x.ReturnType.Name}");
-                var getconstructors = gettype.GetConstructors(); //получение конструкторов
-                var valuesconstructors = getconstructors.Select(x => $" \n {x.Name} - параметры: {string.Join(",", x.GetParameters().Select(y => $"{y.ParameterType.Name}-{y.Name}"))}");
-                return "Cвойства: " + string.Join(", \n", valuesproperties) + "\n Поля: " + string.Join(", \n", valuesfields) + "\n Методы: " + string.Join(", \n", valuesmethods) + "\n Конструкторы: " + string.Join(", \n", valuesconstructors); // формируем строку
-            }
-            static void Main(string[] args)
-            {
-                User user = new User("Cерафим", 11);
-                Console.WriteLine(PrintObjectProperties(user));
-                Console.ReadLine();
-            }
+            User user = new User("Cерафим", 11);
+            Console.WriteLine(PrintObjectProperties(user));
+            Console.ReadLine();
         }
     }
+
 }

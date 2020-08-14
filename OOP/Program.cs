@@ -46,58 +46,7 @@ namespace OOP
         }
     }
 }
-public abstract class Figure // класс с хранением возможных данных о фигуре, стороны, высота, радиус, углы и тд....
-{
-    private double a, b, r, h;
-    public double Storona1 { get { return a; } set { a = value; } } //свойства
-    public double Storona2 { get { return b; } set { b = value; } }
-    public double Radius { get { return r; } set { r = value; } }
-    public double Visota { get { return h; } set { h = value; } }
-}
-public interface Iploshadkvadrata  //интерфейс с сигнатурой для нахлждения площади
-{
-    public void Skv(double a, double b);
-}
-public interface Iploshadpryamougolnika
-{
-    public void Spr(double a, double b);
-}
-public interface Iploshadkruga
-{
-    public void Skr(double r);
-}
-public interface Iploshadtreugolnika
-{
-    public void Str(double a, double h);
-}
-public class Kvadrat : Figure, Iploshadkvadrata  // класс для реальзации вычислении связанные с квадратом
-{
-    public void Skv(double a, double b)
-    {
-        if (a == b)
-            Console.WriteLine("Площадь квадрата =" + (a * b).ToString());
-        else Console.WriteLine("Данная фигура не квадрат");
-    }
-}
-public class Krug : Figure, Iploshadkruga
-{
-    public void Skr(double r)
-    {
-        Console.WriteLine("Площадь круга =" + (Math.PI * Math.Pow(r, 2)).ToString());
-    }
-}
-public class Pryamougolnik : Figure, Iploshadpryamougolnika
-{
-    public void Spr(double a, double b)
-    {
-        Console.WriteLine("Площадь прямоугольника =" + (a * b).ToString());
-    }
-}
-public class Treugolnik : Figure, Iploshadtreugolnika
-{
-    public void Str(double a, double h)
-    {
-        Console.WriteLine("Площадь треугольника =" + ((a * h) / 2.0).ToString());
-    }
-}
+
+
+
 

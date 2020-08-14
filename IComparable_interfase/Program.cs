@@ -29,41 +29,6 @@ namespace IComparableInterfase
             }
             Console.ReadLine();
         }
-    }
-    class Treugolnik : IComparable
-    {
-        public int Katet1 { get; set; }
-        public int Katet2 { get; set; }
-        public int Gipotenuza { get; set; }
-        public int CompareTo(object o)
-        {
-            Treugolnik t = o as Treugolnik;
-            if (t != null)
-            {
-                return this.Gipotenuza.CompareTo(t.Gipotenuza);
-            }
-            else
-            {
-                throw new Exception("Невозможно сравнить два объекта");
-            }
-        }
-    }
-    class TreugolnikComparer : IComparer<Treugolnik>
-    {
-        public int Compare(Treugolnik t1, Treugolnik t2)
-        {
-            if (t1.Katet1 * t1.Katet2 > t2.Katet1 * t2.Katet2)
-            {
-                return 1;
-            }
-            else if (t1.Katet1 * t1.Katet2 < t2.Katet1 * t2.Katet2)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-    }
+    }   
+   
 }

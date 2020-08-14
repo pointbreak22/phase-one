@@ -17,8 +17,6 @@ namespace Enuberable
                     Console.Write(m + " ");
                 }
                 Console.WriteLine("\n");
-
-
             }
             Console.WriteLine("Через while");
             machines.FlagViboraMachines = 1;
@@ -29,26 +27,5 @@ namespace Enuberable
             }
             Console.Read();
         }
-    }
-    class Machines : IEnumerable
-    {
-        string[] nomerabmv = { "bm_11", "bm_22", "bm_33" };
-        string[] nomerashkoda = { "sh_11", "sh_22", "sh_33", "sh_43" };
-        string[] nomeraford = { "fr_11", "fr_22", "fr_33", "fr_83" };
-
-        public int FlagViboraMachines { get; set; }
-
-        public IEnumerator GetEnumerator()
-        {
-            switch (FlagViboraMachines)
-            {
-                case 1: return nomerabmv.GetEnumerator(); break;
-                case 2: return nomerashkoda.GetEnumerator(); break;
-                case 3: return nomeraford.GetEnumerator(); break;
-                default: Console.WriteLine("Данной модели не существует"); return new object[0].GetEnumerator(); break;
-            }
-        }
-    }
-
-
+    } 
 }

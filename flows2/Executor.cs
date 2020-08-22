@@ -19,10 +19,10 @@ namespace flows2
             _semaphore = new Semaphore(maxConcurrent, maxConcurrent);    //установка лимита потоков  
             _cancellationToken.Cancel();
             _me.Set(); //игнор остановки
-            _task = new Task(method);
+            _task = new Task(_method);
             _task.Start();
         }
-        public void method()
+        private void _method()
         {
             Console.WriteLine("//Поток для обработки очереди включен//");
             _cancellationToken = new CancellationTokenSource();
@@ -36,15 +36,8 @@ namespace flows2
                 }
                 if (_QueueActions.Count > 0)
                 {
-                    Task.Factory.StartNew(() =>
-                    {
-                        _semaphore.WaitOne();
-                        if (_QueueActions.Count > 0)
-                        {
-                            _QueueActions.Dequeue()?.Invoke();
-                        }
-                        _semaphore.Release();
-                    });
+                    Task task = new Task(_taskqueue);
+                    task.Start();
                 }
                 else
                 {
@@ -54,6 +47,15 @@ namespace flows2
 
                 }
             }
+        }
+        private void _taskqueue()
+        {
+            _semaphore.WaitOne();
+            if (_QueueActions.Count > 0)
+            {
+                _QueueActions.Dequeue()?.Invoke();
+            }
+            _semaphore.Release();
         }
         public int Amount { get { return _QueueActions.Count; } }
         public void Stop()

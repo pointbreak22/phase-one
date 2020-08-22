@@ -6,10 +6,10 @@ namespace Reflection
 {
     public class User
     {
-        private int type = 10;
-        private int type2 = 15;
+        private int _type = 10;
+        private int _type2 = 15;
         public string NamePeaple { get; set; }
-        private string NamePeaple2 { get; set; }
+        private string _NamePeaple2 { get; set; }
         public int Age { get; set; }
         public User(string n, int a)
         {

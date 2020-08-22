@@ -20,7 +20,7 @@ namespace Enuberable
             }
             Console.WriteLine("Через while");
             machines.FlagViboraMachines = 1;
-            var whileenum = machines.GetEnumerator();
+            var  whileenum = machines.GetEnumerator();
             while (whileenum.MoveNext())
             {
                 Console.WriteLine(whileenum.Current);

@@ -5,14 +5,14 @@ namespace IQurable
 {
     class Program
     {
-        static void Main(string[] args)
+        static Random random = new Random();
+        static int arbitrarylinelength;
+        static string formline;
+        static int thechoice;
+        static CustomType[] сt = new CustomType[100];
+        static void randomnext()
         {
-            Random random = new Random();
-            int arbitrarylinelength;
-         
-            string formline;
-            int thechoice;
-            CustomType[] сt = new CustomType[100];
+
             for (int i = 0; i < 100; i++)
             {
                 formline = "";
@@ -25,6 +25,10 @@ namespace IQurable
                 сt[i] = new CustomType { Line = formline, Number = random.Next(100), Date = DateTime.FromBinary((long)(random.Next(100000000, 999999999) * (long)random.Next(100000000, 999999999))), TrueFalse = (thechoice == 1) ? true : false };
                 Console.WriteLine("id: " + i + "     | \"" + сt[i].Line.ToString() + "\" | " + сt[i].Number.ToString() + " | " + сt[i].Date.ToString() + " | " + сt[i].TrueFalse.ToString());
             }
+
+        }
+        static void linq1()
+        {
             Console.WriteLine("\n Выбрать обьекты где Number больше 50 и сортировать по строкам \n ");
             var filterandsortquery = сt
                 .Where(t => t.Number > 50)
@@ -34,15 +38,18 @@ namespace IQurable
                 Console.WriteLine("Выбрано: " + s.Line.ToString() + "\" | " + s.Number.ToString() + " | " + s.Date.ToString() + " | " + s.TrueFalse.ToString());
             }
             Console.WriteLine("\n Группировка истина,ложь \n ");
-          
-            var TrueFalse = from i in сt
-                             group i by i.TrueFalse into g
-                             select new
-                             {
-                                 thechoice = g.Key,
-                                 Count = g.Count(),
-                                 output = from с in g select с
-                             };
+
+        }
+        static void linq2()
+        {
+            var TrueFalse = сt.GroupBy(p => p.TrueFalse)
+                        .Select(g => new
+                        {
+                            thechoice = g.Key,
+                            Count = g.Count(),
+                            output = g.Select(p => p)
+                        });
+
             foreach (var group in TrueFalse)
             {
                 Console.WriteLine($"{group.thechoice} : {group.Count}");
@@ -52,7 +59,9 @@ namespace IQurable
                 }
                 Console.WriteLine();
             }
-          
+        }
+        static void linq3()
+        {
             Console.WriteLine("\n Есть ли Number 30? \n ");
             if (сt.Any(u => u.Number == 30))
             {
@@ -73,6 +82,15 @@ namespace IQurable
             }
             Console.WriteLine("\n Cумма чисел=" + сt.Sum(i => i.Number) + ", Миниум" + сt.Min(i => i.Number) + ", Максиум" + сt.Max(i => i.Number) + " \n ");
             Console.ReadLine();
+
+        }
+
+        static void Main(string[] args)
+        {
+            randomnext();
+            linq1();
+            linq2();
+            linq3();
         }
     }
     class CustomType

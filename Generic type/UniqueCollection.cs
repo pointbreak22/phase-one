@@ -7,54 +7,54 @@ namespace GenericType
 {
     public class UniqueCollection<T> : ICollection<T>
     {
-        ICollection<T> items;
+        private  ICollection<T> _items;
         public UniqueCollection()
         {
             // Default to using a List<T>.
-            items = new List<T>();
+            _items = new List<T>();
         }
         protected UniqueCollection(ICollection<T> collection)
         {
             // Let derived classes specify the exact type of ICollection<T> to wrap.
-            items = collection;
+            _items = collection;
         }
-        public int Count => items.Count;
+        public int Count => _items.Count;
         public bool IsReadOnly => false;
         public void Add(T item) //добавление
         {
             try
             {
-                if (items.Contains(item))
+                if (_items.Contains(item))
                 {
                     throw new Exception("Итем: " + item.ToString() + " повторяется");
                 }
-                else items.Add(item);
+                else _items.Add(item);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message.ToString()); }
         }
         public void Clear()
         {
-            items.Clear();
+            _items.Clear();
         }
         public bool Contains(T item)
         {
-            return items.Contains(item);
+            return _items.Contains(item);
         }
         public void CopyTo(T[] array, int arrayIndex)
         {
-            items.CopyTo(array, arrayIndex);
+            _items.CopyTo(array, arrayIndex);
         }
         public IEnumerator<T> GetEnumerator()
         {
-            return items.GetEnumerator();
+            return _items.GetEnumerator();
         }
         public bool Remove(T item)
         {
-            return items.Remove(item);
+            return _items.Remove(item);
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return items.GetEnumerator();
+            return _items.GetEnumerator();
         }
     }
        

@@ -12,7 +12,10 @@ namespace OOP
                 {
                     Console.WriteLine("Выберете фигуру:1-квадрат,2-прямоугольник,3-круг,4-треугольник....при выходе введите 0");
                     int vibor = Convert.ToInt32(Console.ReadLine());
-                    if (vibor == 0) break;
+                    if (vibor == 0)
+                    {
+                        break;
+                    }
                     switch (vibor)
                     {
                         case 1:

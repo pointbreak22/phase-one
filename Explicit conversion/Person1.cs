@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExplicitConversion
 {
-  public class Person1
+    public class Person1
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

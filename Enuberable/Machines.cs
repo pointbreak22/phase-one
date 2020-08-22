@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Enuberable
 {
-    class Machines : IEnumerable
+    public class Machines : IEnumerable
     {
       private string[] _nomerabmv = { "bm_11", "bm_22", "bm_33" };
       private string[] _nomerashkoda = { "sh_11", "sh_22", "sh_33", "sh_43" };

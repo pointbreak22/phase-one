@@ -8,7 +8,10 @@ namespace Reflection
     {
         public static string PrintObjectProperties(object ob) //Рефлексия
         {
-            if (ob == null) throw new ArgumentNullException("Object is null", nameof(ob));
+            if (ob == null)
+            {
+                throw new ArgumentNullException("Object is null", nameof(ob));
+            }
             var gettype = ob.GetType(); // получаем тип   
             Console.WriteLine("Обьект: " + gettype);
             var getproperties = gettype.GetProperties(BindingFlags.Public | BindingFlags.Instance); //  получаем все свойства, не статические (noтpublick на приваченные)        

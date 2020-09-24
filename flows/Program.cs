@@ -10,6 +10,11 @@ namespace flows
         static EventWaitHandle eventWait = new EventWaitHandle(false, EventResetMode.AutoReset); //обьявление синхронизации
         static void srpar(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
+            if (stopwatch == null)
+            {
+                throw new ArgumentException("Object is null", nameof(stopwatch));
+            }
+
             object o=new object();
             int n = mas.Length;
             stopwatch.Restart();
@@ -37,6 +42,10 @@ namespace flows
         }
         static void srposl(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
+            if (stopwatch == null)
+            {
+                throw new ArgumentException("Object is null", nameof(stopwatch));
+            }
             stopwatch.Restart();
             for (int i = 0; i < mas.Length; i++)
             {
@@ -65,7 +74,7 @@ namespace flows
             }
             srpar(mas2, stopwatch, Sum);    
             srposl(mas2, stopwatch, Sum);
-            Console.WriteLine();
+            Console.ReadLine();
         }
     }
 }

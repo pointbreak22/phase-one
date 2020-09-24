@@ -22,7 +22,6 @@ namespace Events
             AddQueue(obj, Stoping, n);
             RemoveQueue(obj, Stoping);               
             Stoping -= EventStop;
-
             //третье задание
             NumberStreamAnalysis stream = new NumberStreamAnalysis();
             stream.methodstream();
@@ -34,52 +33,51 @@ namespace Events
             t.PropertyChanged += DisplayMessage;
             t.NotifyPropertyChanged("Hello Word!! (сообщение от INotifyPropertyChanged) \n");
             t.PropertyChanged -= DisplayMessage;
-
         }
         public static void DisplayMessage(object sender, PropertyChangedEventArgs e) //обработчик а
         {
             Console.WriteLine(e.PropertyName);
         }
-        public static void  AddQueue(Queue<MyObject> obj, StopWhile Stoping, int n)
+        public static void AddQueue(Queue<MyObject> obj, StopWhile Stoping, int n)
         {
+            if (Stoping == null)
+            {
+                throw new ArgumentNullException("Property cannot be null or empty", nameof(Stoping) + " is null");
+            }
             int count = 0;
             while (true) // цикл для добавления
             {
                 obj.Enqueue(new MyObject() { Info = "Объект" + count.ToString() }); //добавление обьекта в очередь   
                 if (count + 1 >= n)
                 {
-                    if (Stoping != null)
-                    {
-                        Stoping("Событие активировалось через " + obj.Count + " добавлении обьектов в очередь \n"); //вызов событмия с прерыванием цикла
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("нет обработчика");
-                        break;
-                    }
+
+                    Stoping("Событие активировалось через " + obj.Count + " добавлении обьектов в очередь \n"); //вызов событмия с прерыванием цикла
+                    break;
+
                 }
                 count++;
             }
         }
         public static void RemoveQueue(Queue<MyObject> obj, StopWhile Stoping)
         {
+            if (Stoping == null)
+            {
+                throw new ArgumentNullException("Property cannot be null or empty", nameof(Stoping)+" is null");
+            }
+            if (obj.Count == 0)
+            {
+                throw new ArgumentException("Queue<MyObject>.Count=0", nameof(obj));
+            }
             while (true) // цикл для очищения
             {
                 MyObject my = obj.Dequeue();
                 Console.WriteLine("Удален " + my.Info);
                 if (obj.Count == 0)
                 {
-                    if (Stoping != null)
-                    {
+                 
                         Stoping("Событие-Обьекты удалены из очереди \n"); //вызов событмия с прерыванием цикла
                         break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("нет обработчика");
-                        break;
-                    }
+               
                 }
 
             }

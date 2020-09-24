@@ -9,8 +9,8 @@ namespace ExplicitConversion
             Console.WriteLine("Введите имя и фамилию в строку через пробел");
             string str = Console.ReadLine();
 
-            Person1 person1 = new Person1();
-            Person2 person2 = new Person2();
+            Person1 person1;
+            Person2 person2;
 
             // не явное преобразование
             person1 = str;

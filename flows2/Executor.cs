@@ -16,6 +16,10 @@ namespace flows2
         private ManualResetEvent _me = new ManualResetEvent(false);   //прерывание
         public void Start(int maxConcurrent)
         {
+            if (maxConcurrent == 0)
+            {
+                throw new ArgumentException("Количество параллельно обрабатываемых потоков не должно =0", nameof(maxConcurrent));
+            }
             _semaphore = new Semaphore(maxConcurrent, maxConcurrent);    //установка лимита потоков  
             _cancellationToken.Cancel();
             _me.Set(); //игнор остановки

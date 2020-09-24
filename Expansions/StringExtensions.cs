@@ -10,7 +10,7 @@ namespace Expansions
         {
             if (k == null)
             {
-                throw new ArgumentNullException(nameof(k));
+                throw new ArgumentNullException("Parametr is null", nameof(k));
             }
 
             return new TimeSpan(0, 0, k);
@@ -19,7 +19,7 @@ namespace Expansions
         {
             if (k == null)
             {
-                throw new ArgumentNullException(nameof(k));
+                throw new ArgumentNullException("Parametr is null", nameof(k));
             }
 
             return new TimeSpan(0, k, 0);
@@ -28,7 +28,7 @@ namespace Expansions
         {
             if (k == null)
             {
-                throw new ArgumentNullException(nameof(k));
+                throw new ArgumentNullException("Parametr is null", nameof(k));
             }
 
             return new TimeSpan(k, 0, 0, 0);

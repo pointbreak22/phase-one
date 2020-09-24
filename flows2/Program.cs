@@ -37,6 +37,10 @@ namespace flows2
 
         static void threading(int n, Executor executor, int k)
         {
+            if (executor == null)
+            {
+                throw new ArgumentNullException("Object is null", nameof(executor));
+            }
             Thread thread = new Thread(_ =>
             {
                 for (int i = 0; i < n; i++)
@@ -55,6 +59,10 @@ namespace flows2
         }
         static void start(Executor executor)
         {
+            if (executor == null)
+            {
+                throw new ArgumentNullException("Object is null", nameof(executor));
+            }
             Console.WriteLine("Введите количество паралельных задач");
             string s = Console.ReadLine();
             if (int.TryParse(s, out int n))

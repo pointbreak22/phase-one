@@ -20,7 +20,7 @@ namespace Serialization
         {
             if (jbc == null)
             {
-                throw new ArgumentException("Object is null", nameof(jbc));
+                throw new ArgumentNullException("Object is null", nameof(jbc));
             }
             BinaryFormatter binFormat = new BinaryFormatter();
             using (Stream fStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))

@@ -22,7 +22,7 @@ namespace ExplicitConversion
         {
             if (p2 == null)
             {
-                throw new ArgumentException("Object is null", nameof(p2));
+                throw new ArgumentNullException("Object is null", nameof(p2));
             }
             return p2.FirstName.ToString() + " " + p2.LastName.ToString();
         }

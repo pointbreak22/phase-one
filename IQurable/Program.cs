@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace IQurable
 {
-    class Program
+    internal class Program
     {
-        static Random random = new Random();
-        static int arbitrarylinelength;
-        static string formline;
-        static int thechoice;
-        static CustomType[] сt = new CustomType[100];
-        static void randomnext()
-        {
+        private static Random random = new Random();
+        private static int arbitrarylinelength;
+        private static string formline;
+        private static int thechoice;
+        private static CustomType[] сt = new CustomType[100];
 
+        private static void randomnext()
+        {
             for (int i = 0; i < 100; i++)
             {
                 formline = "";
@@ -25,9 +25,9 @@ namespace IQurable
                 сt[i] = new CustomType { Line = formline, Number = random.Next(100), Date = DateTime.FromBinary((long)(random.Next(100000000, 999999999) * (long)random.Next(100000000, 999999999))), TrueFalse = (thechoice == 1) ? true : false };
                 Console.WriteLine("id: " + i + "     | \"" + сt[i].Line.ToString() + "\" | " + сt[i].Number.ToString() + " | " + сt[i].Date.ToString() + " | " + сt[i].TrueFalse.ToString());
             }
-
         }
-        static void linq1()
+
+        private static void linq1()
         {
             Console.WriteLine("\n Выбрать обьекты где Number больше 50 и сортировать по строкам \n ");
             var filterandsortquery = сt
@@ -38,9 +38,9 @@ namespace IQurable
                 Console.WriteLine("Выбрано: " + s.Line.ToString() + "\" | " + s.Number.ToString() + " | " + s.Date.ToString() + " | " + s.TrueFalse.ToString());
             }
             Console.WriteLine("\n Группировка истина,ложь \n ");
-
         }
-        static void linq2()
+
+        private static void linq2()
         {
             var TrueFalse = сt.GroupBy(p => p.TrueFalse)
                         .Select(g => new
@@ -60,7 +60,8 @@ namespace IQurable
                 Console.WriteLine();
             }
         }
-        static void linq3()
+
+        private static void linq3()
         {
             Console.WriteLine("\n Есть ли Number 30? \n ");
             if (сt.Any(u => u.Number == 30))
@@ -82,10 +83,9 @@ namespace IQurable
             }
             Console.WriteLine("\n Cумма чисел=" + сt.Sum(i => i.Number) + ", Миниум" + сt.Min(i => i.Number) + ", Максиум" + сt.Max(i => i.Number) + " \n ");
             Console.ReadLine();
-
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             randomnext();
             linq1();
@@ -93,12 +93,12 @@ namespace IQurable
             linq3();
         }
     }
-    class CustomType
+
+    internal class CustomType
     {
         public string Line { get; set; }
         public int Number { get; set; }
         public DateTime Date { get; set; }
         public bool TrueFalse { get; set; }
-
     }
 }

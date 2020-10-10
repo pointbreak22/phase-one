@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Regular_Expression
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // выделить числа из текста(1, 1000, 1 000 000, 100.23)
             method1();
@@ -14,7 +14,8 @@ namespace Regular_Expression
             //  проверить что вводимое число -корректный номер телефона(+373 77767852, 77767852, 0 (777) 67852)
             method3();
         }
-        static void method1()
+
+        private static void method1()
         {
             string str = "1, 1000, 1 000 000, 100.23";
             Regex regex = new Regex(@"(\d{1,3}\s(\d{3}\s?)*)|(\d+\.\d+)|\d+");
@@ -29,7 +30,8 @@ namespace Regular_Expression
                 Console.WriteLine("Совпадений не найдено");
             }
         }
-        static void method2()
+
+        private static void method2()
         {
             string s = "Мама  мыла  раму. ";
             string pattern = @"\s+";
@@ -38,7 +40,8 @@ namespace Regular_Expression
             string result = regex.Replace(s, target);
             Console.WriteLine(result);
         }
-        static void method3()
+
+        private static void method3()
         {
             Console.WriteLine("Введите номер телефона");
             string number = Console.ReadLine();
@@ -52,8 +55,6 @@ namespace Regular_Expression
                 Console.WriteLine("Номер: {0}-Ошибочный номер", number);
             }
             Console.ReadLine();
-
-
         }
     }
 }

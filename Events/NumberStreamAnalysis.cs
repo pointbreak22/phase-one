@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Events
 {
-    class NumberStreamAnalysis
+    internal class NumberStreamAnalysis
     {
         private Random _random = new Random();
         private double _number1, _number2, _avarge, _deviation;
+
         private delegate void Streamanalysis(int n, double _number1, double _number2, double average, double _deviation);
+
         private event Streamanalysis _Stream;
 
         public void methodstream()
@@ -25,23 +25,26 @@ namespace Events
                 Console.Write(_number2.ToString() + " ");
                 _avarge = (_number2 + _number1) / 2; //среднее
                 _deviation = Math.Sqrt((Math.Pow(_avarge - _number1, 2) + Math.Pow(_avarge - _number2, 2)) / 2); //стандартное отклонение
-                if (_deviation > x) {
+                if (_deviation > x)
+                {
                     _Stream?.Invoke(i + 1, _number1, _number2, _avarge, _deviation);
                 }
-                else {
+                else
+                {
                     k++;
                 }
                 _number1 = _number2;
             }
-            if (k == 10)  {
+            if (k == 10)
+            {
                 Console.WriteLine("Нет аварийных отклонении");
             }
             _Stream -= EventStream;
         }
+
         private void EventStream(int n, double _number1, double _number2, double average, double _deviation)
         {
             Console.WriteLine("\n Cработало событие " + n + " - N1=" + _number1.ToString() + "  N2=" + _number2.ToString() + "   Среднее=" + _avarge.ToString() + "   Отклонение=" + _deviation.ToString());
-
         }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace ExplicitConversion
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Введите имя и фамилию в строку через пробел");
             string str = Console.ReadLine();
@@ -20,14 +20,11 @@ namespace ExplicitConversion
             person2 = (Person2)str;
             string s2 = (string)person2;
 
-
             Console.WriteLine("Строка не явного преобразования: " + s1 + "\n " + (s1 == person1) + " " + s1.Equals(person1).ToString() + " " + person1.Equals(s1).ToString());
             Console.WriteLine();
             Console.WriteLine("Строка не явного преобразования: " + s2 + "\n " + s2.Equals(person2).ToString() + " " + person2.Equals(s2).ToString());
 
             Console.ReadLine();
-        
         }
-    }   
-   
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace ValueTypesCloning
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Person p1 = new Person { Name = "Tom", Age = 23, Work = new Company { Name = "Microsoft" } };
             Person p2 = (Person)p1.Clone();//клонирование
@@ -16,7 +16,5 @@ namespace ValueTypesCloning
             Console.WriteLine(p2.Work.Name); // Google
             Console.Read();
         }
-      
-
     }
 }

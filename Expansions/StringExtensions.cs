@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Expansions
 {
@@ -15,6 +13,7 @@ namespace Expansions
 
             return new TimeSpan(0, 0, k);
         }
+
         public static TimeSpan Hours(this int k)
         {
             if (k == null)
@@ -24,6 +23,7 @@ namespace Expansions
 
             return new TimeSpan(0, k, 0);
         }
+
         public static TimeSpan Days(this int k)
         {
             if (k == null)

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ExplicitConversion
 {
-  public class Person2
+    public class Person2
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,6 +16,7 @@ namespace ExplicitConversion
             }
             return new Person2() { FirstName = s.Split(" ")[0], LastName = s.Split(" ")[1] };
         }
+
         public static explicit operator string(Person2 p2)
         {
             if (p2 == null)

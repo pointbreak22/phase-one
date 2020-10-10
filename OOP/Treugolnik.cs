@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OOP
 {
-
     public class Treugolnik : Figure, Iploshadtreugolnika
     {
         public void Str(double a, double h)

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 
 namespace flows2
-{   
-    class Program
+{
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
             Executor executor = new Executor();
@@ -19,11 +16,11 @@ namespace flows2
                 str = Console.ReadLine();
                 switch (str)
                 {
-                    case "start":start(executor);  break;
+                    case "start": start(executor); break;
                     case "clear": executor.Clear(); break;
                     case "Amout": Console.WriteLine("Количество задач в очереди " + executor.Amount.ToString()); break;
                     case "stop": executor.Stop(); break;
-                    case "add_actions":  threading(10, executor, 1); threading(20, executor, 2); break;              
+                    case "add_actions": threading(10, executor, 1); threading(20, executor, 2); break;
                     default: Console.WriteLine("Команды не существует "); break;
                 }
                 if (str == "exit")
@@ -35,7 +32,7 @@ namespace flows2
             Console.ReadLine();
         }
 
-        static void threading(int n, Executor executor, int k)
+        private static void threading(int n, Executor executor, int k)
         {
             if (executor == null)
             {
@@ -55,9 +52,9 @@ namespace flows2
                 }
             });
             thread.Start();
-
         }
-        static void start(Executor executor)
+
+        private static void start(Executor executor)
         {
             if (executor == null)
             {
@@ -74,7 +71,6 @@ namespace flows2
             {
                 Console.WriteLine("ввели не число, введите команду заново");
             }
-
         }
     }
 }

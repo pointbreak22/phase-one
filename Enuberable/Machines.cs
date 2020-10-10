@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Enuberable
 {
     public class Machines : IEnumerable
     {
-      private string[] _nomerabmv = { "bm_11", "bm_22", "bm_33" };
-      private string[] _nomerashkoda = { "sh_11", "sh_22", "sh_33", "sh_43" };
-      private string[] _nomeraford = { "fr_11", "fr_22", "fr_33", "fr_83" };
+        private string[] _nomerabmv = { "bm_11", "bm_22", "bm_33" };
+        private string[] _nomerashkoda = { "sh_11", "sh_22", "sh_33", "sh_43" };
+        private string[] _nomeraford = { "fr_11", "fr_22", "fr_33", "fr_83" };
 
-       public int FlagViboraMachines { get; set; }
+        public int FlagViboraMachines { get; set; }
 
         public IEnumerator GetEnumerator()
         {

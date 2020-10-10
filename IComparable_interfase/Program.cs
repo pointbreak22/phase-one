@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace IComparableInterfase
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Random random = new Random();
             Treugolnik[] tr = new Treugolnik[10];
@@ -29,6 +28,5 @@ namespace IComparableInterfase
             }
             Console.ReadLine();
         }
-    }   
-   
+    }
 }

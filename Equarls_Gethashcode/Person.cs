@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EquarlsGethashcode
 {
@@ -21,6 +19,7 @@ namespace EquarlsGethashcode
 
             return pr.Fio == Fio && pr.Date == Date && pr.Placeofbirt == Placeofbirt;
         }
+
         public override int GetHashCode()
         {
             return (Fio + Date.ToString() + Placeofbirt + PassportNumber.ToString()).GetHashCode();

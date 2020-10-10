@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OOP
+﻿namespace OOP
 {
     public abstract class Figure // класс с хранением возможных данных о фигуре, стороны, высота, радиус, углы и тд....
     {

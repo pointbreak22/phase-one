@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 
 namespace Enuberable
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Machines machines = new Machines();
             for (int i = 1; i < 5; i++)
@@ -20,12 +19,12 @@ namespace Enuberable
             }
             Console.WriteLine("Через while");
             machines.FlagViboraMachines = 1;
-            var  whileenum = machines.GetEnumerator();
+            var whileenum = machines.GetEnumerator();
             while (whileenum.MoveNext())
             {
                 Console.WriteLine(whileenum.Current);
             }
             Console.Read();
         }
-    } 
+    }
 }

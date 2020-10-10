@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GenericType
 {
     public class UniqueCollection<T> : ICollection<T>
     {
-        private  ICollection<T> _items;
+        private ICollection<T> _items;
+
         public UniqueCollection()
         {
             // Default to using a List<T>.
             _items = new List<T>();
         }
+
         protected UniqueCollection(ICollection<T> collection)
         {
             // Let derived classes specify the exact type of ICollection<T> to wrap.
             _items = collection;
         }
+
         public int Count => _items.Count;
         public bool IsReadOnly => false;
+
         public void Add(T item) //добавление
         {
             try
@@ -32,30 +35,35 @@ namespace GenericType
             }
             catch (Exception ex) { Console.WriteLine(ex.Message.ToString()); }
         }
+
         public void Clear()
         {
             _items.Clear();
         }
+
         public bool Contains(T item)
         {
             return _items.Contains(item);
         }
+
         public void CopyTo(T[] array, int arrayIndex)
         {
             _items.CopyTo(array, arrayIndex);
         }
+
         public IEnumerator<T> GetEnumerator()
         {
             return _items.GetEnumerator();
         }
+
         public bool Remove(T item)
         {
             return _items.Remove(item);
         }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _items.GetEnumerator();
         }
     }
-       
 }

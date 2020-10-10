@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Threading;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace flows
 {
-    class Program
+    internal class Program
     {
-        static EventWaitHandle eventWait = new EventWaitHandle(false, EventResetMode.AutoReset); //обьявление синхронизации
-        static void srpar(double[] mas, Stopwatch stopwatch, double sum = 0)
+        private static EventWaitHandle eventWait = new EventWaitHandle(false, EventResetMode.AutoReset); //обьявление синхронизации
+
+        private static void srpar(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
             if (stopwatch == null)
             {
                 throw new ArgumentException("Object is null", nameof(stopwatch));
             }
 
-            object o=new object();
+            object o = new object();
             int n = mas.Length;
             stopwatch.Restart();
             while (n >= 0)
@@ -33,14 +33,15 @@ namespace flows
                             eventWait.Set();
                         }
                     }
-                });                    
+                });
             }
             eventWait.WaitOne();//прерывание
             sum /= mas.Length;
             stopwatch.Stop();
             Console.WriteLine("Время паралельной обработки " + mas.Length.ToString() + " переменных: " + stopwatch.ElapsedMilliseconds.ToString() + " млс\n Среднее:" + sum.ToString());
         }
-        static void srposl(double[] mas, Stopwatch stopwatch, double sum = 0)
+
+        private static void srposl(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
             if (stopwatch == null)
             {
@@ -55,7 +56,8 @@ namespace flows
             stopwatch.Stop();
             Console.WriteLine("Время последовательной обработки " + mas.Length.ToString() + " переменных: " + stopwatch.ElapsedMilliseconds.ToString() + " млс\n Среднее:" + sum.ToString());
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             Random random = new Random();
             double[] mas1 = new double[10000000];
@@ -66,13 +68,13 @@ namespace flows
             {
                 mas1[i] = random.Next(100);
             }
-            srpar(mas1, stopwatch, Sum);           
+            srpar(mas1, stopwatch, Sum);
             srposl(mas1, stopwatch, Sum);
             for (int i = 0; i < mas2.Length; i++)
             {
                 mas2[i] = random.Next(100);
             }
-            srpar(mas2, stopwatch, Sum);    
+            srpar(mas2, stopwatch, Sum);
             srposl(mas2, stopwatch, Sum);
             Console.ReadLine();
         }

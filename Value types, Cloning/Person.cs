@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ValueTypesCloning
 {
-    class Person : ICloneable
+    internal class Person : ICloneable
     {
         public string Name { get; set; }
         public int Age { get; set; }
         public Company Work { get; set; }
+
         public object Clone()  //метод для создания нового обьекта с исходным значением так как при простого присвоения копируется ссылка
         {
             Company company = new Company { Name = this.Work.Name }; // создание ссылки на обьект для глубокого копирования
@@ -16,7 +15,8 @@ namespace ValueTypesCloning
                                                                                      //  return this.MemberwiseClone();   //для упрощения
         }
     }
-    class Company
+
+    internal class Company
     {
         public string Name { get; set; }
     }

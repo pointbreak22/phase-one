@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace IComparableInterfase
 {
-    class TreugolnikComparer : IComparer<Treugolnik>
+    internal class TreugolnikComparer : IComparer<Treugolnik>
     {
         public int Compare(Treugolnik t1, Treugolnik t2)
         {

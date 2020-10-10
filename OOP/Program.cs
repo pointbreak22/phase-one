@@ -2,9 +2,9 @@
 
 namespace OOP
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             while (true)
             {
@@ -24,17 +24,20 @@ namespace OOP
                             Console.WriteLine("Введите длину второй стороны:"); kvadrat.Storona2 = Convert.ToDouble(Console.ReadLine());
                             kvadrat.Skv(kvadrat.Storona1, kvadrat.Storona2); //обращение к методу в квадрате для нахождения площади
                             break;
+
                         case 2:
                             Pryamougolnik pryamougolnik = new Pryamougolnik();
                             Console.WriteLine("Введите длину первой стороны:"); pryamougolnik.Storona1 = Convert.ToDouble(Console.ReadLine());
                             Console.WriteLine("Введите длину второй стороны:"); pryamougolnik.Storona2 = Convert.ToDouble(Console.ReadLine());
                             pryamougolnik.Spr(pryamougolnik.Storona1, pryamougolnik.Storona2);
                             break;
+
                         case 3:
                             Krug krug = new Krug();
                             Console.WriteLine("Введите длину радиуса:"); krug.Radius = Convert.ToDouble(Console.ReadLine());
                             krug.Skr(krug.Radius);
                             break;
+
                         case 4:
                             Treugolnik treugolnik = new Treugolnik();
                             Console.WriteLine("Введите длину основания:"); treugolnik.Storona1 = Convert.ToDouble(Console.ReadLine());
@@ -45,11 +48,6 @@ namespace OOP
                 }
                 catch (Exception ex) { Console.WriteLine(ex.ToString()); }
             }
-
         }
     }
 }
-
-
-
-

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace GenericType
-{   
-   
-    class Program
+{
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Загружаем коллекцию  1, 1, 2");
             UniqueCollection<int> uncol = new UniqueCollection<int>();

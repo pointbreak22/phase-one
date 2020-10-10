@@ -4,7 +4,7 @@ namespace Expansions
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("Вывод 5 секунд: " + 5.Seconds());
             Console.WriteLine("Вывод 5 минут: " + 5.Hours());

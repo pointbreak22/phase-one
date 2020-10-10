@@ -2,7 +2,7 @@
 
 namespace OOP
 {
-    public class Kvadrat : Figure, Iploshadkvadrata  // класс для реальзации вычислении связанные с квадратом
+    public class Kvadrat : Figure, IPloshadkvadrata  // класс для реальзации вычислении связанные с квадратом
     {
         public void Skv(double a, double b)
         {

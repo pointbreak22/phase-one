@@ -2,7 +2,7 @@
 
 namespace OOP
 {
-    public class Krug : Figure, Iploshadkruga
+    public class Krug : Figure, IPloshadkruga
     {
         public void Skr(double r)
         {

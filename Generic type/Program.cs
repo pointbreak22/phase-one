@@ -4,13 +4,15 @@ namespace GenericType
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("Загружаем коллекцию  1, 1, 2");
-            UniqueCollection<int> uncol = new UniqueCollection<int>();
-            uncol.Add(1);
-            uncol.Add(1);
-            uncol.Add(2);
+            UniqueCollection<int> uncol = new UniqueCollection<int>
+            {
+                1,
+                1,
+                2
+            };
             Console.WriteLine("Выводим коллекцию");
             foreach (int col in uncol)
             {

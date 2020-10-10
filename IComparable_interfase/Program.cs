@@ -4,7 +4,7 @@ namespace IComparableInterfase
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Random random = new Random();
             Treugolnik[] tr = new Treugolnik[10];

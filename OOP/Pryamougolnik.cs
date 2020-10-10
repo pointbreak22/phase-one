@@ -2,7 +2,7 @@
 
 namespace OOP
 {
-    public class Pryamougolnik : Figure, Iploshadpryamougolnika
+    public class Pryamougolnik : Figure, IPloshadpryamougolnika
     {
         public void Spr(double a, double b)
         {

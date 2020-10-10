@@ -5,10 +5,12 @@ namespace List
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            Dictionary<int, Person> persons = new Dictionary<int, Person>();
-            persons.Add(1, new Person { Fio = "Петр", Date = DateTime.Parse("Jan 1, 2009"), PlaceOfBirt = "Западный", PassportNumber = 123, PlaceOfWork = "Cтроитель" });
+            Dictionary<int, Person> persons = new Dictionary<int, Person>
+            {
+                { 1, new Person { Fio = "Петр", Date = DateTime.Parse("Jan 1, 2009"), PlaceOfBirt = "Западный", PassportNumber = 123, PlaceOfWork = "Cтроитель" } }
+            };
             Console.WriteLine("Введите Fio (Петр) ");
             string fio = Console.ReadLine();
             Console.WriteLine("Введите дату рождения (Jan 1, 2009) ");

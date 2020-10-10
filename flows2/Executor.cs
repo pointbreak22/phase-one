@@ -7,7 +7,7 @@ namespace flows2
 {
     public class Executor : IJobExecutor
     {
-        private Queue<Action> _QueueActions = new Queue<Action>(); //очередь потоков
+        private readonly Queue<Action> _QueueActions = new Queue<Action>(); //очередь потоков
         private Semaphore _semaphore;
         private Task _task;
         private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
@@ -23,11 +23,11 @@ namespace flows2
             _semaphore = new Semaphore(maxConcurrent, maxConcurrent);    //установка лимита потоков
             _cancellationToken.Cancel();
             _me.Set(); //игнор остановки
-            _task = new Task(_method);
+            _task = new Task(Method);
             _task.Start();
         }
 
-        private void _method()
+        private void Method()
         {
             Console.WriteLine("//Поток для обработки очереди включен//");
             _cancellationToken = new CancellationTokenSource();
@@ -41,7 +41,7 @@ namespace flows2
                 }
                 if (_QueueActions.Count > 0)
                 {
-                    Task task = new Task(_taskqueue);
+                    Task task = new Task(Taskqueue);
                     task.Start();
                 }
                 else
@@ -53,7 +53,7 @@ namespace flows2
             }
         }
 
-        private void _taskqueue()
+        private void Taskqueue()
         {
             _semaphore.WaitOne();
             if (_QueueActions.Count > 0)

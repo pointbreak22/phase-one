@@ -25,7 +25,7 @@ namespace Reflection
             return "Cвойства: " + string.Join(", \n", valuesproperties) + "\n Поля: " + string.Join(", \n", valuesfields) + "\n Методы: " + string.Join(", \n", valuesmethods) + "\n Конструкторы: " + string.Join(", \n", valuesconstructors); // формируем строку
         }
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             User user = new User("Cерафим", 11);
             Console.WriteLine(PrintObjectProperties(user));

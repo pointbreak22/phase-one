@@ -2,7 +2,7 @@
 
 namespace OOP
 {
-    public class Treugolnik : Figure, Iploshadtreugolnika
+    public class Treugolnik : Figure, IPloshadtreugolnika
     {
         public void Str(double a, double h)
         {

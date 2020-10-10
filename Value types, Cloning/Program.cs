@@ -4,7 +4,7 @@ namespace ValueTypesCloning
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Person p1 = new Person { Name = "Tom", Age = 23, Work = new Company { Name = "Microsoft" } };
             Person p2 = (Person)p1.Clone();//клонирование

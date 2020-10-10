@@ -1,6 +1,6 @@
 ﻿namespace OOP
 {
-    public interface Iploshadpryamougolnika
+    public interface IPloshadpryamougolnika
     {
         public void Spr(double a, double b);
     }

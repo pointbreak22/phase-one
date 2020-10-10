@@ -4,7 +4,7 @@ namespace EquarlsGethashcode
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Person p1 = new Person { Fio = "f1", Date = DateTime.Today, Placeofbirt = "d4", PassportNumber = 5 };
             Person p2 = new Person { Fio = "f1", Date = DateTime.Today, Placeofbirt = "d4" };

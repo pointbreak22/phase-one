@@ -10,10 +10,10 @@ namespace Events
 
         public static event StopWhile Stoping;
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             // первое задание
-            notify();
+            Notify();
             //второе задание
             Stoping += EventStop;
             Queue<MyObject> obj = new Queue<MyObject>();
@@ -24,11 +24,11 @@ namespace Events
             Stoping -= EventStop;
             //третье задание
             NumberStreamAnalysis stream = new NumberStreamAnalysis();
-            stream.methodstream();
+            stream.Methodstream();
             Console.ReadLine();
         }
 
-        public static void notify()
+        public static void Notify()
         {
             Test t = new Test();
             t.PropertyChanged += DisplayMessage;

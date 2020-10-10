@@ -6,7 +6,7 @@ namespace flows
 {
     internal class Program
     {
-        private static EventWaitHandle eventWait = new EventWaitHandle(false, EventResetMode.AutoReset); //обьявление синхронизации
+        private static readonly EventWaitHandle eventWait = new EventWaitHandle(false, EventResetMode.AutoReset); //обьявление синхронизации
 
         private static void srpar(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
@@ -41,7 +41,7 @@ namespace flows
             Console.WriteLine("Время паралельной обработки " + mas.Length.ToString() + " переменных: " + stopwatch.ElapsedMilliseconds.ToString() + " млс\n Среднее:" + sum.ToString());
         }
 
-        private static void srposl(double[] mas, Stopwatch stopwatch, double sum = 0)
+        private static void Srposl(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
             if (stopwatch == null)
             {
@@ -57,7 +57,7 @@ namespace flows
             Console.WriteLine("Время последовательной обработки " + mas.Length.ToString() + " переменных: " + stopwatch.ElapsedMilliseconds.ToString() + " млс\n Среднее:" + sum.ToString());
         }
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             Random random = new Random();
             double[] mas1 = new double[10000000];
@@ -69,13 +69,13 @@ namespace flows
                 mas1[i] = random.Next(100);
             }
             srpar(mas1, stopwatch, Sum);
-            srposl(mas1, stopwatch, Sum);
+            Srposl(mas1, stopwatch, Sum);
             for (int i = 0; i < mas2.Length; i++)
             {
                 mas2[i] = random.Next(100);
             }
             srpar(mas2, stopwatch, Sum);
-            srposl(mas2, stopwatch, Sum);
+            Srposl(mas2, stopwatch, Sum);
             Console.ReadLine();
         }
     }

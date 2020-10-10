@@ -4,7 +4,7 @@ namespace ExplicitConversion
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("Введите имя и фамилию в строку через пробел");
             string str = Console.ReadLine();

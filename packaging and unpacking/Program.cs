@@ -5,7 +5,7 @@ namespace PackagingAndUnpacking
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             int n = 0;
             object o = new object();

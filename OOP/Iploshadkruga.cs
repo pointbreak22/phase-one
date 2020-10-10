@@ -1,6 +1,6 @@
 ﻿namespace OOP
 {
-    public interface Iploshadkruga
+    public interface IPloshadkruga
     {
         public void Skr(double r);
     }

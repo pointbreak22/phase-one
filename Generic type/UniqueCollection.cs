@@ -6,7 +6,7 @@ namespace GenericType
 {
     public class UniqueCollection<T> : ICollection<T>
     {
-        private ICollection<T> _items;
+        private readonly ICollection<T> _items;
 
         public UniqueCollection()
         {

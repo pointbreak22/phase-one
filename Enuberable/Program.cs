@@ -4,7 +4,7 @@ namespace Enuberable
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Machines machines = new Machines();
             for (int i = 1; i < 5; i++)

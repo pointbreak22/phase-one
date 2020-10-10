@@ -8,14 +8,14 @@ namespace Regular_Expression
         private static void Main(string[] args)
         {
             // выделить числа из текста(1, 1000, 1 000 000, 100.23)
-            method1();
+            Method1();
             // удалить из выражения повторяющиеся пробелы, между токенами д.б. 1 пробел
-            method2();
+            Method2();
             //  проверить что вводимое число -корректный номер телефона(+373 77767852, 77767852, 0 (777) 67852)
-            method3();
+            Method3();
         }
 
-        private static void method1()
+        private static void Method1()
         {
             string str = "1, 1000, 1 000 000, 100.23";
             Regex regex = new Regex(@"(\d{1,3}\s(\d{3}\s?)*)|(\d+\.\d+)|\d+");
@@ -31,7 +31,7 @@ namespace Regular_Expression
             }
         }
 
-        private static void method2()
+        private static void Method2()
         {
             string s = "Мама  мыла  раму. ";
             string pattern = @"\s+";
@@ -41,7 +41,7 @@ namespace Regular_Expression
             Console.WriteLine(result);
         }
 
-        private static void method3()
+        private static void Method3()
         {
             Console.WriteLine("Введите номер телефона");
             string number = Console.ReadLine();

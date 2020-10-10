@@ -4,16 +4,16 @@ namespace Events
 {
     internal class NumberStreamAnalysis
     {
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
         private double _number1, _number2, _avarge, _deviation;
 
         private delegate void Streamanalysis(int n, double _number1, double _number2, double average, double _deviation);
 
-        private event Streamanalysis _Stream;
+        private event Streamanalysis Stream;
 
-        public void methodstream()
+        public void Methodstream()
         {
-            _Stream += EventStream;
+            Stream += EventStream;
             Console.WriteLine("введите предел отклонения (x)");
             double x = Convert.ToDouble(Console.ReadLine());
             _number1 = _random.Next(100);
@@ -27,7 +27,7 @@ namespace Events
                 _deviation = Math.Sqrt((Math.Pow(_avarge - _number1, 2) + Math.Pow(_avarge - _number2, 2)) / 2); //стандартное отклонение
                 if (_deviation > x)
                 {
-                    _Stream?.Invoke(i + 1, _number1, _number2, _avarge, _deviation);
+                    Stream?.Invoke(i + 1, _number1, _number2, _avarge, _deviation);
                 }
                 else
                 {
@@ -39,7 +39,7 @@ namespace Events
             {
                 Console.WriteLine("Нет аварийных отклонении");
             }
-            _Stream -= EventStream;
+            Stream -= EventStream;
         }
 
         private void EventStream(int n, double _number1, double _number2, double average, double _deviation)

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace List
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Dictionary<int, Person> persons = new Dictionary<int, Person>();
-            persons.Add(1, new Person { Fio = "Петр", Date = DateTime.Parse("Jan 1, 2009"), PlaceOfBirt = "Западный", PassportNumber = 123, PlaceOfWork = "Cтроитель" });
+            Dictionary<int, Person> persons = new Dictionary<int, Person>
+            {
+                { 1, new Person { Fio = "Петр", Date = DateTime.Parse("Jan 1, 2009"), PlaceOfBirt = "Западный", PassportNumber = 123, PlaceOfWork = "Cтроитель" } }
+            };
             Console.WriteLine("Введите Fio (Петр) ");
             string fio = Console.ReadLine();
             Console.WriteLine("Введите дату рождения (Jan 1, 2009) ");
@@ -21,7 +22,6 @@ namespace List
             Person seach = new Person { Fio = fio, Date = date, PlaceOfBirt = PlaceOfBirth, PassportNumber = PassportNumber };
             foreach (KeyValuePair<int, Person> dict in persons)
             {
-
                 if (seach.Equals(dict.Value))
                     Console.WriteLine("он " + dict.Value.PlaceOfWork);
                 else Console.WriteLine("Его не существует");
@@ -29,5 +29,4 @@ namespace List
             Console.ReadLine();
         }
     }
-
 }

@@ -4,7 +4,9 @@ namespace flows2
 {
     public interface IJobExecutor
     {
+        ///<summary>
         /// Кол-во задач в очереди на обработку
+        /// </summary>
         public int Amount { get; }
 
         /// Запустить обработку очереди и установить максимальное кол-во  параллельных задач

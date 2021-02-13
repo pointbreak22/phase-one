@@ -7,7 +7,7 @@ namespace flows2
 {
     public class Executor : IJobExecutor
     {
-        private readonly Queue<Action> _QueueActions = new Queue<Action>(); //очередь потоков
+        private ConcurrentQueue<Action> _CQueueActions = new  ConcurrentQueue<Action>(); //очередь потоков
         private Semaphore _semaphore;
         private Task _task;
         private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
@@ -16,6 +16,7 @@ namespace flows2
 
         public void Start(int maxConcurrent)
         {
+            /*
             if (maxConcurrent == 0)
             {
                 throw new ArgumentException("Количество параллельно обрабатываемых потоков не должно =0", nameof(maxConcurrent));
@@ -25,8 +26,9 @@ namespace flows2
             _me.Set(); //игнор остановки
             _task = new Task(Method);
             _task.Start();
+            */
         }
-
+/*
         private void Method()
         {
             Console.WriteLine("//Поток для обработки очереди включен//");
@@ -52,7 +54,8 @@ namespace flows2
                 }
             }
         }
-
+*/
+/*
         private void Taskqueue()
         {
             _semaphore.WaitOne();
@@ -62,13 +65,13 @@ namespace flows2
             }
             _semaphore.Release();
         }
-
+*/
         public int Amount { get { return _QueueActions.Count; } }
 
         public void Stop()
         {
-            _cancellationToken.Cancel();
-            _me.Set();
+           // _cancellationToken.Cancel();
+            //_me.Set();
             Console.WriteLine("//Остановка потока обработки очереди//");
         }
 
@@ -76,7 +79,7 @@ namespace flows2
         {
             _QueueActions.Enqueue(action); //добавление в очередь
             Console.WriteLine("Добавлена в очерередь задача №" + _QueueActions.Count);
-            _me.Set();
+           // _me.Set();
         }
 
         public void Clear()

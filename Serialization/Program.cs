@@ -33,8 +33,10 @@ namespace Serialization
         {
             BinaryFormatter binFormat = new BinaryFormatter();
             using Stream fStream = File.OpenRead(fileName);
-            JamesBondClass carFromDisk = (JamesBondClass)binFormat.Deserialize(fStream);
-            Console.WriteLine("Вывод при изьятии из файла " + carFromDisk.CanFly.ToString() + " " + carFromDisk.CanSubmerge.ToString() + " " + carFromDisk.TheRadio.StationPresets[0]);
+            {
+                JamesBondClass carFromDisk = (JamesBondClass)binFormat.Deserialize(fStream);
+                Console.WriteLine("Вывод при изьятии из файла " + carFromDisk.CanFly.ToString() + " " + carFromDisk.CanSubmerge.ToString() + " " + carFromDisk.TheRadio.StationPresets[0]);
+            }
         }
     }
 }

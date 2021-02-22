@@ -23,8 +23,13 @@ namespace List
             foreach (KeyValuePair<int, Person> dict in persons)
             {
                 if (seach.Equals(dict.Value))
+                {
                     Console.WriteLine("он " + dict.Value.PlaceOfWork);
-                else Console.WriteLine("Его не существует");
+                }
+                else
+                {
+                    Console.WriteLine("Его не существует");
+                }
             }
             Console.ReadLine();
         }

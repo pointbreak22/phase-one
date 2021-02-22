@@ -12,9 +12,13 @@ namespace EquarlsGethashcode
         public override bool Equals(object obj)
         {
             if (obj == null)
+            {
                 return false;
+            }
             if (!(obj is Person))
+            {
                 return false;
+            }
             var pr = (Person)obj;
 
             return pr.Fio == Fio && pr.Date == Date && pr.Placeofbirt == Placeofbirt;

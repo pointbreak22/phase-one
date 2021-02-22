@@ -13,9 +13,13 @@ namespace List
         public override bool Equals(object obj) //сравнение по параметрам
         {
             if (obj == null)
+            {
                 return false;
+            }
             if (!(obj is Person))
+            {
                 return false;
+            }
             var pr = (Person)obj;
             return pr.Fio == Fio && pr.Date == Date && pr.PlaceOfBirt == PlaceOfBirt && pr.PassportNumber == PassportNumber;
         }

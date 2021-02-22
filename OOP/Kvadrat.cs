@@ -7,8 +7,13 @@ namespace OOP
         public void Skv(double a, double b)
         {
             if (a == b)
+            {
                 Console.WriteLine("Площадь квадрата =" + (a * b).ToString());
-            else Console.WriteLine("Данная фигура не квадрат");
+            }
+            else
+            {
+                Console.WriteLine("Данная фигура не квадрат");
+            }
         }
     }
 }

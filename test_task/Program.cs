@@ -30,7 +30,6 @@ namespace flows2
 
                     Console.WriteLine($"Задача  {Task.CurrentId} завершена");
                 }
-
                 executor.Add(action1);
             }
             Console.WriteLine($"Загружено количество задач {executor.Amount} ");

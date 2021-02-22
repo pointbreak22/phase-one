@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace flows2
 {
@@ -7,7 +8,8 @@ namespace flows2
     {
         private static void Main()
         {
-            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            CancellationTokenSource cancelToken = new CancellationTokenSource();
+            CancellationToken token = cancelToken.Token;
             Executor executor = new Executor();
             string str;
             Console.WriteLine("Ввдедите \"start\" чтоб запустить обработку очереди, \"add_actions\" для добавления задач , \"clear\" очистить текущую очередь, \"Amout\" количество задач в очереди, \"stop\" остановить обработку,  \"exit\" выйти  ");
@@ -20,7 +22,7 @@ namespace flows2
                     case "clear": executor.Clear(); break;
                     case "Amout": Console.WriteLine("Количество задач в очереди " + executor.Amount.ToString()); break;
                     case "stop": executor.Stop(); break;
-                    case "add_actions": Threading(10, executor, 1); Threading(20, executor, 2); break;
+                    case "add_actions": Threading(10, executor, 1, token); Threading(20, executor, 2, token); break;
                     default: Console.WriteLine("Команды не существует "); break;
                 }
                 if (str == "exit")
@@ -32,26 +34,33 @@ namespace flows2
             Console.ReadLine();
         }
 
-        private static void Threading(int n, Executor executor, int k)
+        private static async void Threading(int n, Executor executor, int k, CancellationToken token)
         {
             if (executor == null)
             {
                 throw new ArgumentNullException("Object is null", nameof(executor));
             }
-            Thread thread = new Thread(_ =>
+            await Task.Run(() =>
             {
                 for (int i = 0; i < n; i++)
                 {
                     void action1()
                     {
-                        Console.WriteLine("Задача потока id=" + k.ToString() + " началась");
-                        Thread.Sleep(100);
-                        Console.WriteLine("Задача потока id=" + k.ToString() + " завершилась");
+                        for (int i = 1; i <= 1000; i++)
+                        {
+                            if (token.IsCancellationRequested)
+                            {
+                                Console.WriteLine("Задача прервана токеном");
+                                return;
+                            }
+
+                            Console.WriteLine($"Завершена задача {Task.CurrentId}");
+                            Thread.Sleep(10);
+                        }
                     }
                     executor.Add(action1);
                 }
             });
-            thread.Start();
         }
 
         private static void Start(Executor executor)

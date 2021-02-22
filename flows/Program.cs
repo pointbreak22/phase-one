@@ -8,7 +8,7 @@ namespace flows
     {
         private static readonly EventWaitHandle eventWait = new EventWaitHandle(false, EventResetMode.AutoReset); //обьявление синхронизации
 
-        private static void srpar(double[] mas, Stopwatch stopwatch, double sum = 0)
+        private static void Srpar(double[] mas, Stopwatch stopwatch, double sum = 0)
         {
             if (stopwatch == null)
             {
@@ -68,13 +68,13 @@ namespace flows
             {
                 mas1[i] = random.Next(100);
             }
-            srpar(mas1, stopwatch, Sum);
+            Srpar(mas1, stopwatch, Sum);
             Srposl(mas1, stopwatch, Sum);
             for (int i = 0; i < mas2.Length; i++)
             {
                 mas2[i] = random.Next(100);
             }
-            srpar(mas2, stopwatch, Sum);
+            Srpar(mas2, stopwatch, Sum);
             Srposl(mas2, stopwatch, Sum);
             Console.ReadLine();
         }

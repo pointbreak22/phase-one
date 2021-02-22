@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,7 +7,7 @@ namespace flows2
 {
     public class Executor : IJobExecutor
     {
-        private ConcurrentQueue<Action> _CQueueActions = new  ConcurrentQueue<Action>(); //очередь потоков
+        private ConcurrentQueue<Action> _QueueActions = new ConcurrentQueue<Action>();
         private Semaphore _semaphore;
         private Task _task;
         private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
@@ -85,7 +85,7 @@ namespace flows2
         public void Clear()
         {
             _QueueActions.Clear(); //очистка
-            Console.WriteLine("Текущие адачи очищены");
+            Console.WriteLine("Текущие задачи очищены");
         }
     }
 }

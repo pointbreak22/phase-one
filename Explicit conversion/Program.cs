@@ -22,7 +22,7 @@ namespace ExplicitConversion
 
             Console.WriteLine("Строка не явного преобразования: " + s1 + "\n " + (s1 == person1) + " " + s1.Equals(person1).ToString() + " " + person1.Equals(s1).ToString());
             Console.WriteLine();
-            Console.WriteLine("Строка не явного преобразования: " + s2 + "\n " + s2.Equals(person2).ToString() + " " + person2.Equals(s2).ToString());
+            Console.WriteLine("Строка явного преобразования: " + s2 + "\n " + s2.Equals(person2).ToString() + " " + person2.Equals(s2).ToString());
 
             Console.ReadLine();
         }

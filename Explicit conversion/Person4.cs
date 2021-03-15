@@ -1,23 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace ExplicitConversion
+namespace Explicit_conversion
 {
-    public class Person1
+    internal class Person4
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        //конструкция не явного преобразования
-        public static implicit operator Person1(string s)
+        //конструкция явного преобразования
+        public static explicit operator Person4(string s)
         {
             if (s.Split(" ").Length != 2)
             {
                 throw new ArgumentException("Отсутствие имени и фамилии через пробел", nameof(s));
             }
-            return new Person1() { FirstName = s.Split(" ")[0], LastName = s.Split(" ")[1] };
+            return new Person4() { FirstName = s.Split(" ")[0], LastName = s.Split(" ")[1] };
         }
 
-        public static implicit operator string(Person1 p2)
+        public static implicit operator string(Person4 p2)
         {
             if (p2 == null)
             {

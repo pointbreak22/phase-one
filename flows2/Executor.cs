@@ -21,11 +21,17 @@ namespace flows2
             Console.WriteLine($"Добавлнена задача в очередь");
         }
 
-        public void Clear(CancellationTokenSource cancelToken)
+        private async void TaskAsync()
         {
-            cancelToken.Cancel();
-            _ConcurrentQueueActions.Clear();
-            Console.WriteLine("Задачи очищены");
+            _sem.WaitOne();
+            if (!_ConcurrentQueueActions.IsEmpty)
+            {
+                await Task.Run(() =>
+                {
+                    _ConcurrentQueueActions.TryDequeue(out Action action); action();
+                });
+                _sem.Release();
+            }
         }
 
         public async void Start(int maxConcurrent, CancellationToken token)
@@ -59,23 +65,17 @@ namespace flows2
             }
         }
 
-        private async void TaskAsync()
-        {
-            _sem.WaitOne();
-            if (!_ConcurrentQueueActions.IsEmpty)
-            {
-                await Task.Run(() =>
-                {
-                    _ConcurrentQueueActions.TryDequeue(out Action action); action();
-                });
-                _sem.Release();
-            }
-        }
-
         public void Stop(CancellationTokenSource cancelToken)
         {
             cancelToken.Cancel();
             Console.WriteLine("Потоки становленны");
+        }
+
+        public void Clear(CancellationTokenSource cancelToken)
+        {
+            cancelToken.Cancel();
+            _ConcurrentQueueActions.Clear();
+            Console.WriteLine("Задачи очищены");
         }
     }
 }

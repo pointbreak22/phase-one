@@ -12,7 +12,7 @@ namespace Enumeration
             {
                 machines.FlagMachines = i;
                 Console.Write("Модель №:" + i.ToString() + "--");
-                foreach (object? m in machines)
+                foreach (object m in machines)
                 {
                     Console.Write(m + " ");
                 }

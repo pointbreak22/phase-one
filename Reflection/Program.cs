@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -10,19 +11,19 @@ namespace Reflection
         {
             if (ob == null)
             {
-                throw new ArgumentNullException("Object is null", nameof(ob));
+                throw new ArgumentNullException(nameof(ob), "Object is null" + nameof(ob));
             }
-            var gettype = ob.GetType(); // получаем тип
-            Console.WriteLine("Обьект: " + gettype);
-            var getproperties = gettype.GetProperties(BindingFlags.Public | BindingFlags.Instance); //  получаем все свойства, не статические (noтpublick на приваченные)
-            var valuesproperties = getproperties.Select(x => $"{x.Name} : {x.GetValue(ob)}"); // перебираем все  свойства и описываем формат сохранения в строку
-            var getfields = gettype.GetFields(BindingFlags.NonPublic | BindingFlags.Instance); //получаем все не публичные поля
-            var valuesfields = getfields.Select(x => $"{x.Name} : {x.GetValue(ob)}");
-            var getmethods = gettype.GetMethods(); //получение методов
-            var valuesmethods = getmethods.Select(x => $"{x.Name} -тип метода> {x.ReturnType.Name}");
-            var getconstructors = gettype.GetConstructors(); //получение конструкторов
-            var valuesconstructors = getconstructors.Select(x => $" \n {x.Name} - параметры: {string.Join(",", x.GetParameters().Select(y => $"{y.ParameterType.Name}-{y.Name}"))}");
-            return "Cвойства: " + string.Join(", \n", valuesproperties) + "\n Поля: " + string.Join(", \n", valuesfields) + "\n Методы: " + string.Join(", \n", valuesmethods) + "\n Конструкторы: " + string.Join(", \n", valuesconstructors); // формируем строку
+            Type getty = ob.GetType(); // получаем тип
+            Console.WriteLine("Обьект: " + getty);
+            PropertyInfo[] properties = getty.GetProperties(BindingFlags.Public | BindingFlags.Instance); //  получаем все свойства, не статические (noтpublick на приваченные)
+            IEnumerable<string> valueSAreaOfRectangles = properties.Select(x => $"{x.Name} : {x.GetValue(ob)}");
+            FieldInfo[] fieldsets = getty.GetFields(BindingFlags.NonPublic | BindingFlags.Instance); //получаем все не публичные поля
+            IEnumerable<string> valuesFields = fieldsets.Select(x => $"{x.Name} : {x.GetValue(ob)}");
+            MethodInfo[] methods = getty.GetMethods(); //получение методов
+            IEnumerable<string> getMethods = methods.Select(x => $"{x.Name} -тип метода> {x.ReturnType.Name}");
+            ConstructorInfo[] constructors = getty.GetConstructors(); //получение конструкторов
+            IEnumerable<string> valuesGetMethods = constructors.Select(x => $" \n {x.Name} - параметры: {string.Join(",", x.GetParameters().Select(y => $"{y.ParameterType.Name}-{y.Name}"))}");
+            return "Cвойства: " + string.Join(", \n", valueSAreaOfRectangles) + "\n Поля: " + string.Join(", \n", valuesFields) + "\n Методы: " + string.Join(", \n", getMethods) + "\n Конструкторы: " + string.Join(", \n", valuesGetMethods); // формируем строку
         }
 
         private static void Main()

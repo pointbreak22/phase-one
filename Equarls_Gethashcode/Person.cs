@@ -1,32 +1,27 @@
 ﻿using System;
 
-namespace EquarlsGethashcode
+namespace EqualsGetHashCode
 {
     public class Person
     {
         public string Fio { get; set; }
         public DateTime Date { get; set; }
-        public string Placeofbirt { get; set; }
+        public string PlaceOfBirth { get; set; }
         public int PassportNumber { get; set; }
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
+            if (!(obj is Person person))
             {
                 return false;
             }
-            if (!(obj is Person))
-            {
-                return false;
-            }
-            var pr = (Person)obj;
 
-            return pr.Fio == Fio && pr.Date == Date && pr.Placeofbirt == Placeofbirt;
+            return person.Fio == Fio && person.Date == Date && person.PlaceOfBirth == PlaceOfBirth;
         }
 
         public override int GetHashCode()
         {
-            return (Fio + Date.ToString() + Placeofbirt + PassportNumber.ToString()).GetHashCode();
+            return (Fio + Date + PlaceOfBirth + PassportNumber).GetHashCode();
         }
     }
 }

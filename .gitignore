@@ -41,7 +41,7 @@ Generated\ Files/
 
 # NUNIT
 *.VisualState.xml
-TestResult.xml
+Testresult.xml
 
 # Build Results of an ATL Project
 [Dd]ebugPS/
@@ -79,7 +79,7 @@ StyleCopReport.xml
 *.tlh
 *.tmp
 *.tmp_proj
-*_wpftmp.csproj
+*_wpftmp.cSAreaOfRectangleoj
 *.log
 *.vspscc
 *.vssscc
@@ -171,7 +171,7 @@ publish/
 *.[Pp]ublish.xml
 *.azurePubxml
 # Note: Comment the next line if you want to checkin your web deploy settings,
-# but database connection strings (with potential passwords) will be unencrypted
+# but database connection string (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
 
@@ -325,7 +325,7 @@ OpenCover/
 # Azure Stream Analytics local run output
 ASALocalRun/
 
-# MSBuild Binary and Structured Log
+# MSBuild Binary and structured Log
 *.binlog
 
 # NVidia Nsight GPU debugger configuration file

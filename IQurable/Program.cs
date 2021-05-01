@@ -5,57 +5,57 @@ namespace IQurable
 {
     internal class Program
     {
-        private static readonly Random random = new Random();
-        private static int arbitrarylinelength;
-        private static string formline;
-        private static int thechoice;
-        private static readonly CustomType[] сt = new CustomType[100];
+        private static readonly Random Random = new Random();
+        private static int _arbitraryLineLength;
+        private static string _formLine;
+        private static int _theChoice;
+        private static readonly CustomType[] CustomTypes = new CustomType[100];
 
-        private static void Randomnext()
+        private static void RandomNext()
         {
             for (int i = 0; i < 100; i++)
             {
-                formline = "";
-                arbitrarylinelength = random.Next(1, 10);
-                for (int j = 0; j < arbitrarylinelength; j++)
+                _formLine = "";
+                _arbitraryLineLength = Random.Next(1, 10);
+                for (int j = 0; j < _arbitraryLineLength; j++)
                 {
-                    formline += (char)(random.Next(65, 91));
+                    _formLine += (char)(Random.Next(65, 91));
                 }
-                thechoice = random.Next(2);
-                сt[i] = new CustomType { Line = formline, Number = random.Next(100), Date = DateTime.FromBinary((long)(random.Next(100000000, 999999999) * (long)random.Next(100000000, 999999999))), TrueFalse = (thechoice == 1) };
-                Console.WriteLine("id: " + i + "     | \"" + сt[i].Line.ToString() + "\" | " + сt[i].Number.ToString() + " | " + сt[i].Date.ToString() + " | " + сt[i].TrueFalse.ToString());
+                _theChoice = Random.Next(2);
+                CustomTypes[i] = new CustomType { Line = _formLine, Number = Random.Next(100), Date = DateTime.FromBinary((long)(Random.Next(100000000, 999999999) * (long)Random.Next(100000000, 999999999))), TrueFalse = (_theChoice == 1) };
+                Console.WriteLine("id: " + i + "     | \"" + CustomTypes[i].Line + "\" | " + CustomTypes[i].Number.ToString() + " | " + CustomTypes[i].Date.ToString() + " | " + CustomTypes[i].TrueFalse.ToString());
             }
         }
 
         private static void Linq1()
         {
             Console.WriteLine("\n Выбрать обьекты где Number больше 50 и сортировать по строкам \n ");
-            var filterandsortquery = сt
+            IOrderedEnumerable<CustomType> filterable = CustomTypes
                 .Where(t => t.Number > 50)
                 .OrderBy(t => t.Line);
-            foreach (CustomType s in filterandsortquery)
+            foreach (CustomType s in filterable)
             {
-                Console.WriteLine("Выбрано: " + s.Line.ToString() + "\" | " + s.Number.ToString() + " | " + s.Date.ToString() + " | " + s.TrueFalse.ToString());
+                Console.WriteLine("Выбрано: " + s.Line + "\" | " + s.Number.ToString() + " | " + s.Date.ToString("d") + " | " + s.TrueFalse);
             }
             Console.WriteLine("\n Группировка истина,ложь \n ");
         }
 
         private static void Linq2()
         {
-            var TrueFalse = сt.GroupBy(p => p.TrueFalse)
+            var trueFalse = CustomTypes.GroupBy(p => p.TrueFalse)
                         .Select(g => new
                         {
-                            thechoice = g.Key,
+                            thecHoice = g.Key,
                             Count = g.Count(),
                             output = g.Select(p => p)
                         });
 
-            foreach (var group in TrueFalse)
+            foreach (var group in trueFalse)
             {
-                Console.WriteLine($"{group.thechoice} : {group.Count}");
+                Console.WriteLine($"{group.thecHoice} : {group.Count}");
                 foreach (CustomType сtт in group.output)
                 {
-                    Console.WriteLine("Выбрано: " + сtт.Line.ToString() + "\" | " + сtт.Number.ToString() + " | " + сtт.Date.ToString());
+                    Console.WriteLine("Выбрано: " + сtт.Line + "\" | " + сtт.Number.ToString("N") + " | " + сtт.Date.ToString("d"));
                 }
                 Console.WriteLine();
             }
@@ -64,41 +64,19 @@ namespace IQurable
         private static void Linq3()
         {
             Console.WriteLine("\n Есть ли Number 30? \n ");
-            if (сt.Any(u => u.Number == 30))
-            {
-                Console.WriteLine("да");
-            }
-            else
-            {
-                Console.WriteLine("нет");
-            }
+            Console.WriteLine(CustomTypes.Any(u => u.Number == 30) ? "да" : "нет");
             Console.WriteLine("\n Все коллекции истинны? \n ");
-            if (сt.All(u => u.TrueFalse == true))
-            {
-                Console.WriteLine("да");
-            }
-            else
-            {
-                Console.WriteLine("нет");
-            }
-            Console.WriteLine("\n Cумма чисел=" + сt.Sum(i => i.Number) + ", Миниум" + сt.Min(i => i.Number) + ", Максиум" + сt.Max(i => i.Number) + " \n ");
+            Console.WriteLine(CustomTypes.All(u => u.TrueFalse == true) ? "да" : "нет");
+            Console.WriteLine("\n Cумма чисел=" + CustomTypes.Sum(i => i.Number) + ", Миниум" + CustomTypes.Min(i => i.Number) + ", Максиум" + CustomTypes.Max(i => i.Number) + " \n ");
             Console.ReadLine();
         }
 
         private static void Main()
         {
-            Randomnext();
+            RandomNext();
             Linq1();
             Linq2();
             Linq3();
         }
-    }
-
-    internal class CustomType
-    {
-        public string Line { get; set; }
-        public int Number { get; set; }
-        public DateTime Date { get; set; }
-        public bool TrueFalse { get; set; }
     }
 }

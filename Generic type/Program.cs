@@ -1,22 +1,22 @@
 ﻿using System;
 
-namespace GenericType
+namespace Generic_type
 {
     internal class Program
     {
         private static void Main()
         {
             Console.WriteLine("Загружаем коллекцию  1, 1, 2");
-            UniqueCollection<int> uncol = new UniqueCollection<int>
+            UniqueCollection<int> uncool = new UniqueCollection<int>
             {
                 1,
                 1,
                 2
             };
             Console.WriteLine("Выводим коллекцию");
-            foreach (int col in uncol)
+            foreach (int col in uncool)
             {
-                Console.Write(col.ToString() + " ");
+                Console.Write(col.ToString("N") + " ");
             }
             Console.ReadLine();
         }

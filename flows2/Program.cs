@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace flows2
+namespace Flows2
 {
     internal class Program
     {
@@ -14,7 +13,7 @@ namespace flows2
             Executor executor = new Executor();
             for (int i = 1; i <= 50; i++)
             {
-                void action1()
+                void Action1()
                 {
                     Console.WriteLine($"Работает задача{Task.CurrentId}");
                     for (int i = 1; i <= 100; i++)
@@ -30,7 +29,7 @@ namespace flows2
 
                     Console.WriteLine($"Задача  {Task.CurrentId} завершена");
                 }
-                executor.Add(action1);
+                executor.Add(Action1);
             }
             Console.WriteLine($"Загружено количество задач {executor.Amount} ");
             Console.WriteLine($"Нажмите на любую клавишу чтоб активировать метод Start() ");

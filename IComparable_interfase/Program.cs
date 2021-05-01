@@ -1,30 +1,30 @@
 ﻿using System;
 
-namespace IComparableInterfase
+namespace IComparableInterface
 {
     internal class Program
     {
         private static void Main()
         {
             Random random = new Random();
-            Treugolnik[] tr = new Treugolnik[10];
+            Triangle[] tr = new Triangle[10];
             Console.WriteLine("Генерация");
             for (int i = 0; i < tr.Length; i++)
             {
-                tr[i] = new Treugolnik { Katet1 = random.Next(100), Katet2 = random.Next(100), Gipotenuza = random.Next(100) };
-                Console.WriteLine("Треугольник с сторонами: Катет1=" + tr[i].Katet1 + "  Катет2=" + tr[i].Katet2 + "  Гипоьенуза=" + tr[i].Gipotenuza);
+                tr[i] = new Triangle { Leg1 = random.Next(100), Leg2 = random.Next(100), Hypotenuse = random.Next(100) };
+                Console.WriteLine("Треугольник с сторонами: Катет1=" + tr[i].Leg1 + "  Катет2=" + tr[i].Leg2 + "  Гипоьенуза=" + tr[i].Hypotenuse);
             }
             Console.WriteLine("Сортировка по гипотенузе");
             Array.Sort(tr);
-            foreach (Treugolnik t in tr)
+            foreach (Triangle t in tr)
             {
-                Console.WriteLine("Треугольник с сторонами: Катет1=" + t.Katet1 + "  Катет2=" + t.Katet2 + "  Гипоьенуза=" + t.Gipotenuza);
+                Console.WriteLine("Треугольник с сторонами: Катет1=" + t.Leg1 + "  Катет2=" + t.Leg2 + "  Гипоьенуза=" + t.Hypotenuse);
             }
             Console.WriteLine("Сортировка по площади");
-            Array.Sort(tr, new TreugolnikComparer());
-            foreach (Treugolnik t in tr)
+            Array.Sort(tr, new TriangleComparer());
+            foreach (Triangle t in tr)
             {
-                Console.WriteLine("Треугольник с сторонами: Катет1=" + t.Katet1 + "  Катет2=" + t.Katet2 + "  Гипоьенуза=" + t.Gipotenuza + "  Площадь=" + t.Katet1 * t.Katet2 / 2);
+                Console.WriteLine("Треугольник с сторонами: Катет1=" + t.Leg1 + "  Катет2=" + t.Leg2 + "  Гипоьенуза=" + t.Hypotenuse + "  Площадь=" + t.Leg1 * t.Leg2 / 2);
             }
             Console.ReadLine();
         }

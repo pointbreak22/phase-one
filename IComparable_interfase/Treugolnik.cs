@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace IComparableInterfase
+namespace IComparableInterface
 {
-    internal class Treugolnik : IComparable
+    internal class Triangle : IComparable
     {
-        public int Katet1 { get; set; }
-        public int Katet2 { get; set; }
-        public int Gipotenuza { get; set; }
+        public int Leg1 { get; set; }
+        public int Leg2 { get; set; }
+        public int Hypotenuse { get; set; }
 
         public int CompareTo(object o)
         {
-            Treugolnik t = o as Treugolnik;
-            if (t != null)
+            if (o is Triangle t)
             {
-                return this.Gipotenuza.CompareTo(t.Gipotenuza);
+                return this.Hypotenuse.CompareTo(t.Hypotenuse);
             }
             else
             {

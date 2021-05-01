@@ -2,7 +2,7 @@
 
 namespace Expansions
 {
-    public static class StringExtensions
+    public static class strExtensions
     {
         public static TimeSpan Seconds(this int k)
         {

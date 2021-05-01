@@ -11,38 +11,38 @@ namespace OOP
                 try
                 {
                     Console.WriteLine("Выберете фигуру:1-квадрат,2-прямоугольник,3-круг,4-треугольник....при выходе введите 0");
-                    int vibor = Convert.ToInt32(Console.ReadLine());
-                    if (vibor == 0)
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    if (choice == 0)
                     {
                         break;
                     }
-                    switch (vibor)
+                    switch (choice)
                     {
                         case 1:
-                            Kvadrat kvadrat = new Kvadrat(); // подключение к классу "квадрат"
-                            Console.WriteLine("Введите длину первой стороны:"); kvadrat.Storona1 = Convert.ToDouble(Console.ReadLine()); //ввод данных связанные с ним
-                            Console.WriteLine("Введите длину второй стороны:"); kvadrat.Storona2 = Convert.ToDouble(Console.ReadLine());
-                            kvadrat.Skv(kvadrat.Storona1, kvadrat.Storona2); //обращение к методу в квадрате для нахождения площади
+                            SquareQuadratic squareQuadratic = new SquareQuadratic(); // подключение к классу "квадрат"
+                            Console.WriteLine("Введите длину первой стороны:"); squareQuadratic.SideStorefront1 = Convert.ToDouble(Console.ReadLine()); //ввод данных связанные с ним
+                            Console.WriteLine("Введите длину второй стороны:"); squareQuadratic.SideStorefront2 = Convert.ToDouble(Console.ReadLine());
+                            squareQuadratic.SSquareArea(squareQuadratic.SideStorefront1, squareQuadratic.SideStorefront2); //обращение к методу в квадрате для нахождения площади
                             break;
 
                         case 2:
-                            Pryamougolnik pryamougolnik = new Pryamougolnik();
-                            Console.WriteLine("Введите длину первой стороны:"); pryamougolnik.Storona1 = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Введите длину второй стороны:"); pryamougolnik.Storona2 = Convert.ToDouble(Console.ReadLine());
-                            pryamougolnik.Spr(pryamougolnik.Storona1, pryamougolnik.Storona2);
+                            RectangleTreugolnik rectangleTreugolnik = new RectangleTreugolnik();
+                            Console.WriteLine("Введите длину первой стороны:"); rectangleTreugolnik.SideStorefront1 = Convert.ToDouble(Console.ReadLine());
+                            Console.WriteLine("Введите длину второй стороны:"); rectangleTreugolnik.SideStorefront2 = Convert.ToDouble(Console.ReadLine());
+                            rectangleTreugolnik.SAreaOfRectangle(rectangleTreugolnik.SideStorefront1, rectangleTreugolnik.SideStorefront2);
                             break;
 
                         case 3:
-                            Krug krug = new Krug();
-                            Console.WriteLine("Введите длину радиуса:"); krug.Radius = Convert.ToDouble(Console.ReadLine());
-                            krug.Skr(krug.Radius);
+                            Circle circle = new Circle();
+                            Console.WriteLine("Введите длину радиуса:"); circle.Radius = Convert.ToDouble(Console.ReadLine());
+                            circle.SAreaOfCircle(circle.Radius);
                             break;
 
                         case 4:
                             Treugolnik treugolnik = new Treugolnik();
-                            Console.WriteLine("Введите длину основания:"); treugolnik.Storona1 = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Введите длину высоты:"); treugolnik.Visota = Convert.ToDouble(Console.ReadLine());
-                            treugolnik.Str(treugolnik.Storona1, treugolnik.Visota);
+                            Console.WriteLine("Введите длину основания:"); treugolnik.SideStorefront1 = Convert.ToDouble(Console.ReadLine());
+                            Console.WriteLine("Введите длину высоты:"); treugolnik.HeightVista = Convert.ToDouble(Console.ReadLine());
+                            treugolnik.SAreaOfTriangle(treugolnik.SideStorefront1, treugolnik.HeightVista);
                             break;
                     }
                 }

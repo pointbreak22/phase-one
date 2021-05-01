@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ValueTypesCloning
+namespace Value_types__Cloning
 {
     internal class Program
     {

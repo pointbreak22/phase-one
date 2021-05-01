@@ -5,24 +5,24 @@ namespace Reflection
     public class User
     {
         private readonly int _type2 = 15;
-        public string NamePeaple { get; set; }
+        public string PeopleName { get; set; }
         private string NamePeaple2 { get; set; }
         public int Age { get; set; }
 
         public User(string n, int a)
         {
-            NamePeaple = n;
+            PeopleName = n;
             Age = a;
         }
 
         public void Display()
         {
-            Console.WriteLine($"Имя: {NamePeaple}  Возраст: {Age}");
+            Console.WriteLine($"Имя: {PeopleName}  Возраст: {Age}");
         }
 
-        public int Payment(int hours, int perhour)
+        public int Payment(int hours, int perHour)
         {
-            return hours * perhour;
+            return hours * perHour;
         }
     }
 }

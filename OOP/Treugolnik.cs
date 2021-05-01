@@ -2,11 +2,11 @@
 
 namespace OOP
 {
-    public class Treugolnik : Figure, IPloshadtreugolnika
+    public class Treugolnik : Figure, IAreaOfTriangle
     {
-        public void Str(double a, double h)
+        public void SAreaOfTriangle(double a, double h)
         {
-            Console.WriteLine("Площадь треугольника =" + ((a * h) / 2.0).ToString());
+            Console.WriteLine("Площадь треугольника =" + ((a * h) / 2.0).ToString("N"));
         }
     }
 }

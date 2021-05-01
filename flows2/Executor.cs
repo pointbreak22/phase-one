@@ -1,37 +1,33 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace flows2
+namespace Flows2
 {
     internal class Executor : IJobExecutor
     {
         private static Semaphore _sem;
         private int _flagStart = 0;
-        private readonly ConcurrentQueue<Action> _ConcurrentQueueActions = new ConcurrentQueue<Action>();
+        private readonly ConcurrentQueue<Action> _concurrentQueueActions = new ConcurrentQueue<Action>();
 
-        public int Amount { get { return _ConcurrentQueueActions.Count; } }
+        public int Amount { get { return _concurrentQueueActions.Count; } }
 
         public void Add(Action action)
         {
-            _ConcurrentQueueActions.Enqueue(action);
+            _concurrentQueueActions.Enqueue(action);
             Console.WriteLine($"Добавлнена задача в очередь");
         }
 
         private async void TaskAsync()
         {
             _sem.WaitOne();
-            if (!_ConcurrentQueueActions.IsEmpty)
+            if (_concurrentQueueActions.IsEmpty) return;
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
-                {
-                    _ConcurrentQueueActions.TryDequeue(out Action action); action();
-                });
-                _sem.Release();
-            }
+                _concurrentQueueActions.TryDequeue(out Action action); action?.Invoke();
+            });
+            _sem.Release();
         }
 
         public async void Start(int maxConcurrent, CancellationToken token)
@@ -46,7 +42,7 @@ namespace flows2
                 _sem = new Semaphore(maxConcurrent, maxConcurrent);
                 await Task.Run(() =>
                 {
-                    while (_ConcurrentQueueActions.Count > 0)
+                    while (_concurrentQueueActions.Count > 0)
                     {
                         if (token.IsCancellationRequested)
                         {
@@ -56,7 +52,7 @@ namespace flows2
 
                         TaskAsync();
                     }
-                });
+                }, token);
                 _flagStart = 0;
             }
             else
@@ -74,7 +70,7 @@ namespace flows2
         public void Clear(CancellationTokenSource cancelToken)
         {
             cancelToken.Cancel();
-            _ConcurrentQueueActions.Clear();
+            _concurrentQueueActions.Clear();
             Console.WriteLine("Задачи очищены");
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Explicit_conversion
+namespace ExplicitConversion
 {
     internal class Person3
     {
@@ -23,7 +23,7 @@ namespace Explicit_conversion
         {
             if (p2 == null)
             {
-                throw new ArgumentNullException("Object is null", nameof(p2));
+                throw new ArgumentNullException(nameof(p2), "Object is null");
             }
             return p2.FirstName.ToString() + " " + p2.LastName.ToString();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace PackagingAndUnpacking
+namespace packaging_and_unpacking
 {
     internal class Program
     {

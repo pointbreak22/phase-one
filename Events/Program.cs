@@ -8,23 +8,23 @@ namespace Events
     {
         public delegate void StopWhile(string str);
 
-        public static event StopWhile Stoping;
+        public static event StopWhile Stopping;
 
         private static void Main()
         {
             // первое задание
             Notify();
             //второе задание
-            Stoping += EventStop;
+            Stopping += EventStop;
             Queue<MyObject> obj = new Queue<MyObject>();
             Console.WriteLine("Введите предел очереди (число n)");
             int n = Convert.ToInt32(Console.ReadLine());
-            AddQueue(obj, Stoping, n);
-            RemoveQueue(obj, Stoping);
-            Stoping -= EventStop;
+            AddQueue(obj, Stopping, n);
+            RemoveQueue(obj, Stopping);
+            Stopping -= EventStop;
             //третье задание
-            NumberStreamAnalysis stream = new NumberStreamAnalysis();
-            stream.Methodstream();
+            NumberStreamAnalysis Stream = new NumberStreamAnalysis();
+            Stream.MethodStream();
             Console.ReadLine();
         }
 
@@ -36,16 +36,16 @@ namespace Events
             t.PropertyChanged -= DisplayMessage;
         }
 
-        public static void DisplayMessage(object sender, PropertyChangedEventArgs e) //обработчик а
+        public static void DisplayMessage(object sender, PropertyChangedEventArgs e) //"обработчик а  "
         {
             Console.WriteLine(e.PropertyName);
         }
 
-        public static void AddQueue(Queue<MyObject> obj, StopWhile Stoping, int n)
+        public static void AddQueue(Queue<MyObject> obj, StopWhile stopping, int n)
         {
-            if (Stoping == null)
+            if (stopping == null)
             {
-                throw new ArgumentNullException("Property cannot be null or empty", nameof(Stoping) + " is null");
+                throw new ArgumentNullException(nameof(stopping), "Property cannot be null or empty" + nameof(stopping) + " is null");
             }
             int count = 0;
             while (true) // цикл для добавления
@@ -53,31 +53,30 @@ namespace Events
                 obj.Enqueue(new MyObject() { Info = "Объект" + count.ToString() }); //добавление обьекта в очередь
                 if (count + 1 >= n)
                 {
-                    Stoping("Событие активировалось через " + obj.Count + " добавлении обьектов в очередь \n"); //вызов событмия с прерыванием цикла
+                    stopping?.Invoke("Событие активировалось через " + obj.Count + " добавлении обьектов в очередь \n"); //вызов событмия с прерыванием цикла
                     break;
                 }
                 count++;
             }
         }
 
-        public static void RemoveQueue(Queue<MyObject> obj, StopWhile Stoping)
+        public static void RemoveQueue(Queue<MyObject> obj, StopWhile stopping)
         {
-            if (Stoping == null)
+            if (stopping == null)
             {
-                throw new ArgumentNullException("Property cannot be null or empty", nameof(Stoping) + " is null");
+                throw new ArgumentNullException(nameof(stopping), "Property cannot be null or empty" + nameof(stopping) + " is null");
             }
             if (obj.Count == 0)
             {
                 throw new ArgumentException("Queue<MyObject>.Count=0", nameof(obj));
             }
-            while (true) // цикл для очищения
+            while (obj.Count > 0) // цикл для очищения
             {
                 MyObject my = obj.Dequeue();
                 Console.WriteLine("Удален " + my.Info);
                 if (obj.Count == 0)
                 {
-                    Stoping("Событие-Обьекты удалены из очереди \n"); //вызов событмия с прерыванием цикла
-                    break;
+                    stopping?.Invoke("Событие-Обьекты удалены из очереди \n"); //вызов событмия с прерыванием цикла
                 }
             }
         }

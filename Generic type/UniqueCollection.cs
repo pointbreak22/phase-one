@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace GenericType
+namespace Generic_type
 {
     public class UniqueCollection<T> : ICollection<T>
     {
@@ -14,12 +14,6 @@ namespace GenericType
             _items = new List<T>();
         }
 
-        protected UniqueCollection(ICollection<T> collection)
-        {
-            // Let derived classes specify the exact type of ICollection<T> to wrap.
-            _items = collection;
-        }
-
         public int Count => _items.Count;
         public bool IsReadOnly => false;
 
@@ -29,7 +23,7 @@ namespace GenericType
             {
                 if (_items.Contains(item))
                 {
-                    throw new Exception("Итем: " + item.ToString() + " повторяется");
+                    throw new Exception("Итем: " + item?.ToString() + " повторяется");
                 }
                 else _items.Add(item);
             }

@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace IComparableInterfase
+namespace IComparableInterface
 {
-    internal class TreugolnikComparer : IComparer<Treugolnik>
+    internal class TriangleComparer : IComparer<Triangle>
     {
-        public int Compare(Treugolnik t1, Treugolnik t2)
+        public int Compare(Triangle t1, Triangle t2)
         {
-            if (t1.Katet1 * t1.Katet2 > t2.Katet1 * t2.Katet2)
+            Debug.Assert(t1 != null, nameof(t1) + " != null");
+            Debug.Assert(t2 != null, nameof(t2) + " != null");
+            if (t1.Leg1 * t1.Leg2 > t2.Leg1 * t2.Leg2)
             {
                 return 1;
             }
-            else if (t1.Katet1 * t1.Katet2 < t2.Katet1 * t2.Katet2)
+            else if (t1.Leg1 * t1.Leg2 < t2.Leg1 * t2.Leg2)
             {
                 return -1;
             }

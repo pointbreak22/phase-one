@@ -5,29 +5,29 @@ namespace Events
     internal class NumberStreamAnalysis
     {
         private readonly Random _random = new Random();
-        private double _number1, _number2, _avarge, _deviation;
+        private double _number1, _number2, _average, _deviation;
 
-        private delegate void Streamanalysis(int n, double _number1, double _number2, double average, double _deviation);
+        private delegate void StreamAnalysis(int n, double number1, double number2, double average, double deviation);
 
-        private event Streamanalysis Stream;
+        private event StreamAnalysis Stream;
 
-        public void Methodstream()
+        public void MethodStream()
         {
             Stream += EventStream;
             Console.WriteLine("введите предел отклонения (x)");
             double x = Convert.ToDouble(Console.ReadLine());
             _number1 = _random.Next(100);
-            Console.Write(_number1.ToString() + " ");
+            Console.Write(_number1.ToString("N") + " ");
             int k = 0;
             for (int i = 0; i < 10; i++)
             {
                 _number2 = _random.Next(100);
-                Console.Write(_number2.ToString() + " ");
-                _avarge = (_number2 + _number1) / 2; //среднее
-                _deviation = Math.Sqrt((Math.Pow(_avarge - _number1, 2) + Math.Pow(_avarge - _number2, 2)) / 2); //стандартное отклонение
+                Console.Write(_number2.ToString("N") + " ");
+                _average = (_number2 + _number1) / 2; //среднее
+                _deviation = Math.Sqrt((Math.Pow(_average - _number1, 2) + Math.Pow(_average - _number2, 2)) / 2); //стандартное отклонение
                 if (_deviation > x)
                 {
-                    Stream?.Invoke(i + 1, _number1, _number2, _avarge, _deviation);
+                    Stream?.Invoke(i + 1, _number1, _number2, _average, _deviation);
                 }
                 else
                 {
@@ -42,9 +42,9 @@ namespace Events
             Stream -= EventStream;
         }
 
-        private void EventStream(int n, double _number1, double _number2, double average, double _deviation)
+        private static void EventStream(int n, double number1, double number2, double average, double deviation)
         {
-            Console.WriteLine("\n Cработало событие " + n + " - N1=" + _number1.ToString() + "  N2=" + _number2.ToString() + "   Среднее=" + _avarge.ToString() + "   Отклонение=" + _deviation.ToString());
+            Console.WriteLine("\n Cработало событие " + n + " - N1=" + number1.ToString("N") + "  N2=" + number2.ToString("N") + "   Среднее=" + average.ToString("N") + "   Отклонение=" + deviation.ToString("N"));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections;
 
-namespace Enuberable
+namespace Enumeration
 {
     internal class Program
     {
@@ -9,20 +10,20 @@ namespace Enuberable
             Machines machines = new Machines();
             for (int i = 1; i < 5; i++)
             {
-                machines.FlagViboraMachines = i;
+                machines.FlagMachines = i;
                 Console.Write("Модель №:" + i.ToString() + "--");
-                foreach (var m in machines)
+                foreach (object? m in machines)
                 {
                     Console.Write(m + " ");
                 }
                 Console.WriteLine("\n");
             }
             Console.WriteLine("Через while");
-            machines.FlagViboraMachines = 1;
-            var whileenum = machines.GetEnumerator();
-            while (whileenum.MoveNext())
+            machines.FlagMachines = 1;
+            IEnumerator whileEnum = machines.GetEnumerator();
+            while (whileEnum.MoveNext())
             {
-                Console.WriteLine(whileenum.Current);
+                Console.WriteLine(whileEnum.Current);
             }
             Console.Read();
         }

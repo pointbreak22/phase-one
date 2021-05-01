@@ -1,5 +1,4 @@
-﻿using Explicit_conversion;
-using System;
+﻿using System;
 
 namespace ExplicitConversion
 {
@@ -8,25 +7,20 @@ namespace ExplicitConversion
         private static void Main()
         {
             Console.WriteLine("Введите имя и фамилию в строку через пробел");
-            string str = Console.ReadLine();
-
-            Person1 person1;
-            Person2 person2;
-            Person3 person3;
-            Person4 person4;
+            string stringLine = Console.ReadLine() ?? throw new ArgumentNullException();
 
             // не явное преобразование
-            person1 = str;
-            string s1 = person1;
+            Person1 person1 = stringLine;
+            Person1 s1 = person1;
 
             //явное преобразование
-            person2 = (Person2)str;
+            Person2 person2 = (Person2)stringLine;
             string s2 = (string)person2;
 
-            person3 = str;
+            Person3 person3 = stringLine;
             string s3 = (string)person3;
 
-            person4 = (Person4)str;
+            Person4 person4 = (Person4)stringLine;
             string s4 = person4;
 
             Console.WriteLine("Строка не явного преобразования: " + s1 + "\n " + (s1 == person1) + " " + s1.Equals(person1).ToString() + " " + person1.Equals(s1).ToString());

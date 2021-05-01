@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace flows2
+namespace Flows2
 {
     public interface IJobExecutor
     {
@@ -10,7 +10,9 @@ namespace flows2
         /// </summary>
         public int Amount { get; }
 
+        ///<summary>
         /// Запустить обработку очереди и установить максимальное кол-во  параллельных задач
+        /// </summary>
         public void Start(int maxConcurrent, CancellationToken token);
 
         /// Остановить обработку очереди и выполнять задачи

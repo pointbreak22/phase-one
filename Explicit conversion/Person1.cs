@@ -21,7 +21,7 @@ namespace ExplicitConversion
         {
             if (p2 == null)
             {
-                throw new ArgumentNullException("Object is null", nameof(p2));
+                throw new ArgumentNullException(nameof(p2), "Object is null");
             }
             return p2.FirstName.ToString() + " " + p2.LastName.ToString();
         }

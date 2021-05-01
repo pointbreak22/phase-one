@@ -1,91 +1,81 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace flows2
 {
-    public class Executor : IJobExecutor
+    internal class Executor : IJobExecutor
     {
-        private ConcurrentQueue<Action> _QueueActions = new ConcurrentQueue<Action>();
-        private Semaphore _semaphore;
-        private Task _task;
-        private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
-        private CancellationToken _token;
-        private ManualResetEvent _me = new ManualResetEvent(false);   //прерывание
+        private static Semaphore _sem;
+        private int _flagStart = 0;
+        private readonly ConcurrentQueue<Action> _ConcurrentQueueActions = new ConcurrentQueue<Action>();
 
-        public void Start(int maxConcurrent)
-        {
-            /*
-            if (maxConcurrent == 0)
-            {
-                throw new ArgumentException("Количество параллельно обрабатываемых потоков не должно =0", nameof(maxConcurrent));
-            }
-            _semaphore = new Semaphore(maxConcurrent, maxConcurrent);    //установка лимита потоков
-            _cancellationToken.Cancel();
-            _me.Set(); //игнор остановки
-            _task = new Task(Method);
-            _task.Start();
-            */
-        }
-/*
-        private void Method()
-        {
-            Console.WriteLine("//Поток для обработки очереди включен//");
-            _cancellationToken = new CancellationTokenSource();
-            _token = _cancellationToken.Token;
-            while (true) //цикл для ожидания задач пока токен активный
-            {
-                if (_token.IsCancellationRequested)
-                {
-                    Console.WriteLine("//поток обработки очереди остановлен //");
-                    break;
-                }
-                if (_QueueActions.Count > 0)
-                {
-                    Task task = new Task(Taskqueue);
-                    task.Start();
-                }
-                else
-                {
-                    Console.WriteLine("//Задачи отсутствуют//");
-                    _me.Reset();  //сбрасывание прерывания
-                    _me.WaitOne();//остановка
-                }
-            }
-        }
-*/
-/*
-        private void Taskqueue()
-        {
-            _semaphore.WaitOne();
-            if (_QueueActions.Count > 0)
-            {
-                _QueueActions.Dequeue()?.Invoke();
-            }
-            _semaphore.Release();
-        }
-*/
-        public int Amount { get { return _QueueActions.Count; } }
-
-        public void Stop()
-        {
-           // _cancellationToken.Cancel();
-            //_me.Set();
-            Console.WriteLine("//Остановка потока обработки очереди//");
-        }
+        public int Amount { get { return _ConcurrentQueueActions.Count; } }
 
         public void Add(Action action)
         {
-            _QueueActions.Enqueue(action); //добавление в очередь
-            Console.WriteLine("Добавлена в очерередь задача №" + _QueueActions.Count);
-           // _me.Set();
+            _ConcurrentQueueActions.Enqueue(action);
+            Console.WriteLine($"Добавлнена задача в очередь");
         }
 
-        public void Clear()
+        public void Clear(CancellationTokenSource cancelToken)
         {
-            _QueueActions.Clear(); //очистка
-            Console.WriteLine("Текущие задачи очищены");
+            cancelToken.Cancel();
+            _ConcurrentQueueActions.Clear();
+            Console.WriteLine("Задачи очищены");
+        }
+
+        public async void Start(int maxConcurrent, CancellationToken token)
+        {
+            if (maxConcurrent < 1)
+            {
+                throw new Exception("Количество паралельных задач не может быть меньше единицы");
+            }
+            else if (_flagStart == 0)
+            {
+                _flagStart = 1;
+                _sem = new Semaphore(maxConcurrent, maxConcurrent);
+                await Task.Run(() =>
+                {
+                    while (_ConcurrentQueueActions.Count > 0)
+                    {
+                        if (token.IsCancellationRequested)
+                        {
+                            Console.WriteLine("Очередь прервана токеном");
+                            return;
+                        }
+
+                        TaskAsync();
+                    }
+                });
+                _flagStart = 0;
+            }
+            else
+            {
+                Console.WriteLine("Подождите пока выполнятся задачи");
+            }
+        }
+
+        private async void TaskAsync()
+        {
+            _sem.WaitOne();
+            if (!_ConcurrentQueueActions.IsEmpty)
+            {
+                await Task.Run(() =>
+                {
+                    _ConcurrentQueueActions.TryDequeue(out Action action); action();
+                });
+                _sem.Release();
+            }
+        }
+
+        public void Stop(CancellationTokenSource cancelToken)
+        {
+            cancelToken.Cancel();
+            Console.WriteLine("Потоки становленны");
         }
     }
 }

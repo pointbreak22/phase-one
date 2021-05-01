@@ -5,7 +5,7 @@ namespace Regular_expression
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             // выделить числа из текста(1, 1000, 1 000 000, 100.23)
             Method1();

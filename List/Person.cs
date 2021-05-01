@@ -12,7 +12,7 @@ namespace List
 
         public override bool Equals(object obj) //сравнение по параметрам
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == GetType() && Equals((Person)obj);
         }

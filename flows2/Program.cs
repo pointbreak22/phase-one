@@ -11,7 +11,7 @@ namespace Flows2
             CancellationTokenSource cancelToken = new CancellationTokenSource();
             CancellationToken token = cancelToken.Token;
             Executor executor = new Executor();
-            for (int i = 1; i <= 50; i++)
+            for (int i = 1; i <= 20; i++)
             {
                 void Action1()
                 {
@@ -23,10 +23,8 @@ namespace Flows2
                             Console.WriteLine($"Задача {Task.CurrentId} прервана токеном");
                             return;
                         }
-
                         Thread.Sleep(10);
                     }
-
                     Console.WriteLine($"Задача  {Task.CurrentId} завершена");
                 }
                 executor.Add(Action1);

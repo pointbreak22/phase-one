@@ -7,53 +7,81 @@ namespace Flows2
 {
     internal class Executor : IJobExecutor
     {
-        private static Semaphore _sem;
+        private Semaphore _sem;
         private int _flagStart = 0;
-        private readonly ConcurrentQueue<Action> _concurrentQueueActions = new ConcurrentQueue<Action>();
+        private readonly Mutex _mutexObj = new Mutex();
+        private ConcurrentQueue<Action> _concurrentQueueActions = new ConcurrentQueue<Action>();
+        private ConcurrentQueue<Action> _concurrentQueueActions2 = new ConcurrentQueue<Action>();
 
         public int Amount { get { return _concurrentQueueActions.Count; } }
 
         public void Add(Action action)
         {
-            _concurrentQueueActions.Enqueue(action);
-            Console.WriteLine($"Добавлнена задача в очередь");
+            if (_flagStart == 0)      //если старт не активен то задачи добавляются в основную очередь
+            {
+                _concurrentQueueActions.Enqueue(action);
+                Console.WriteLine($"Добавлнена задача в ооновную очередь");
+            }
+            else
+            {
+                _concurrentQueueActions2.Enqueue(action);    //иначе добавляются в дополнительную очередь
+                Console.WriteLine($"Добавлена задача в ожидании");
+            }
         }
 
-        private async void TaskAsync()
+        private async Task TaskAsync()
         {
             _sem.WaitOne();
-            if (_concurrentQueueActions.IsEmpty) return;
+            if (_concurrentQueueActions.IsEmpty)
+            {
+                return;
+            }
+
             await Task.Run(() =>
             {
-                _concurrentQueueActions.TryDequeue(out Action action); action?.Invoke();
+                _mutexObj.WaitOne();
+                _concurrentQueueActions.TryDequeue(out Action action); //общий ресурс
+                _mutexObj.ReleaseMutex();
+                action?.Invoke();
             });
+
             _sem.Release();
         }
 
-        public async void Start(int maxConcurrent, CancellationToken token)
+        public async void RunAsync(CancellationToken token)
+        {
+            await Task.Run(() =>
+            {
+                while (_concurrentQueueActions.Count > 0)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        Console.WriteLine("Очередь прервана токеном");
+                        return;
+                    }
+
+                    TaskAsync(); //метод где извлекается задача из очереди и выполняется
+                }
+            }, token);
+
+            //выполняется после того как обработается основная очередь
+            _flagStart = 0;
+            _concurrentQueueActions = _concurrentQueueActions2;  //после окончания очереди добовляются задачи из ожидания
+            _concurrentQueueActions2.Clear();  //очищается дополнительная очередь
+        }
+
+        public void Start(int maxConcurrent, CancellationToken token)
         {
             if (maxConcurrent < 1)
             {
                 throw new Exception("Количество паралельных задач не может быть меньше единицы");
             }
-            else if (_flagStart == 0)
+
+            if (_flagStart == 0)
             {
                 _flagStart = 1;
                 _sem = new Semaphore(maxConcurrent, maxConcurrent);
-                await Task.Run(() =>
-                {
-                    while (_concurrentQueueActions.Count > 0)
-                    {
-                        if (token.IsCancellationRequested)
-                        {
-                            Console.WriteLine("Очередь прервана токеном");
-                            return;
-                        }
-
-                        TaskAsync();
-                    }
-                }, token);
-                _flagStart = 0;
+                RunAsync(token);
             }
             else
             {
@@ -70,6 +98,7 @@ namespace Flows2
         public void Clear(CancellationTokenSource cancelToken)
         {
             cancelToken.Cancel();
+            _concurrentQueueActions2.Clear();
             _concurrentQueueActions.Clear();
             Console.WriteLine("Задачи очищены");
         }

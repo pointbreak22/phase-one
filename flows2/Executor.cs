@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Flows2
 {
-    internal class Executor : IJobExecutor
+    internal class Executor : IJobExecutor              //Наследник
     {
         private Semaphore _sem;
         private int _flagStart = 0;

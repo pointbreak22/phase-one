@@ -13,15 +13,15 @@ namespace Flows2
         ///<summary>
         /// Запустить обработку очереди и установить максимальное кол-во  параллельных задач
         /// </summary>
-        public void Start(int maxConcurrent, CancellationToken token);
+        public void Start(int maxConcurrent);
 
         /// Остановить обработку очереди и выполнять задачи
-        public void Stop(CancellationTokenSource cancelToken);
+        public void Stop();
 
         /// Добавить задачу в очередь
         public void Add(Action action);
 
         /// Очистить очередь задач
-        public void Clear(CancellationTokenSource cancelToken);
+        public void Clear();
     }
 }

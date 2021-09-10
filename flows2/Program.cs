@@ -8,40 +8,39 @@ namespace Flows2
     {
         private static void Main()
         {
-            CancellationTokenSource cancelToken = new CancellationTokenSource();
-            CancellationToken token = cancelToken.Token;
-            Executor executor = new Executor();
-            for (int i = 1; i <= 20; i++)
+            Executor executor = new Executor()
             {
-                void Action1()
+                TaskQueue = new System.Collections.Concurrent.ConcurrentQueue<Task>(),
+                CancellationTokenSource = new CancellationTokenSource(),
+            };
+            executor.Token = executor.CancellationTokenSource.Token;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                while (true)
                 {
-                    Console.WriteLine($"Работает задача{Task.CurrentId}");
-                    for (int i = 1; i <= 100; i++)
+                    if (executor.TaskQueue.Count < 20)
                     {
-                        if (token.IsCancellationRequested)
+                        executor.Add(() =>
                         {
-                            Console.WriteLine($"Задача {Task.CurrentId} прервана токеном");
-                            return;
-                        }
-                        Thread.Sleep(10);
+                            Console.WriteLine("the task has started");
+                            Thread.Sleep(1000);
+                            Console.WriteLine("the task has stopped");
+                        });
                     }
-                    Console.WriteLine($"Задача  {Task.CurrentId} завершена");
                 }
-                executor.Add(Action1);
-            }
-            Console.WriteLine($"Загружено количество задач {executor.Amount} ");
-            Console.WriteLine($"Нажмите на любую клавишу чтоб активировать метод Start() ");
-            Console.ReadLine();
-            executor.Start(3, token);
-            Console.WriteLine($"Нажмите на любую клавишу чтоб остановить задачи ");
-            Console.ReadLine();
-            executor.Stop(cancelToken);
-            Console.WriteLine($"Осталось количество задач {executor.Amount} ");
-            Console.WriteLine($"Нажмите на любую клавишу чтоб очистить задачи ");
-            Console.ReadLine();
-            executor.Clear(cancelToken);
-            Console.WriteLine($"Осталось количество задач {executor.Amount} ");
-            Console.ReadLine();
+            });
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                executor.Start(10);
+            });
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Thread.Sleep(1000);
+                executor.Stop();
+                executor.Clear();
+                Console.WriteLine("Stop");
+            });
+            Console.ReadKey();
         }
     }
 }

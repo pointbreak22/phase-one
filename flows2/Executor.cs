@@ -1,4 +1,4 @@
-Ôªøusing System;
+  using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Flows2
 {
-    internal class Executor : IJobExecutor              ///–ù–∞—Å–ª–µ–¥–Ω–∏–∫
+    internal class Executor : IJobExecutor              ///Õ‡ÒÎÂ‰ÌËÍ
     {
         public CancellationTokenSource CancellationTokenSource { get; set; }
         public CancellationToken Token { get { return CancellationTokenSource.Token; } set { } }

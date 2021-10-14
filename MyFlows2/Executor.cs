@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Flows2
 {
-    internal class Executor : IJobExecutor              //Наследник
+    internal class Executor : IJobExecutor              //////Наследник
     {
         public CancellationTokenSource CancellationTokenSource { get; set; }
         public CancellationToken Token { get { return CancellationTokenSource.Token; } set { } }

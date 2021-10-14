@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -16,11 +17,11 @@ namespace Events
             Notify();
             //второе задание
             Stopping += EventStop;
-            Queue<MyObject> obj = new Queue<MyObject>();
+            ConcurrentQueue<MyObject> myObjects = new ConcurrentQueue<MyObject>();
             Console.WriteLine("Введите предел очереди (число n)");
             int n = Convert.ToInt32(Console.ReadLine());
-            AddQueue(obj, Stopping, n);
-            RemoveQueue(obj, Stopping);
+            AddQueue(myObjects, Stopping, n);
+            RemoveQueue(myObjects, Stopping);
             Stopping -= EventStop;
             //третье задание
             NumberStreamAnalysis Stream = new NumberStreamAnalysis();
@@ -30,10 +31,10 @@ namespace Events
 
         public static void Notify()
         {
-            Test t = new Test();
-            t.PropertyChanged += DisplayMessage;
-            t.NotifyPropertyChanged("Hello Word!! (сообщение от INotifyPropertyChanged) \n");
-            t.PropertyChanged -= DisplayMessage;
+            NotifyProperty notifyProperty = new NotifyProperty();
+            notifyProperty.PropertyChanged += DisplayMessage;
+            notifyProperty.NotifyPropertyChanged("Hello Word!! (сообщение от INotifyPropertyChanged) \n");
+            notifyProperty.PropertyChanged -= DisplayMessage;
         }
 
         public static void DisplayMessage(object sender, PropertyChangedEventArgs e) //"обработчик а  "
@@ -41,7 +42,7 @@ namespace Events
             Console.WriteLine(e.PropertyName);
         }
 
-        public static void AddQueue(Queue<MyObject> obj, StopWhile stopping, int n)
+        public static void AddQueue(ConcurrentQueue<MyObject> myObjects, StopWhile stopping, int n)
         {
             if (stopping == null)
             {
@@ -50,31 +51,31 @@ namespace Events
             int count = 0;
             while (true) // цикл для добавления
             {
-                obj.Enqueue(new MyObject() { Info = "Объект" + count.ToString() }); //добавление обьекта в очередь
+                myObjects.Enqueue(new MyObject() { Info = "Объект" + count.ToString() }); //добавление обьекта в очередь
                 if (count + 1 >= n)
                 {
-                    stopping?.Invoke("Событие активировалось через " + obj.Count + " добавлении обьектов в очередь \n"); //вызов событмия с прерыванием цикла
+                    stopping?.Invoke("Событие активировалось через " + myObjects.Count + " добавлении обьектов в очередь \n"); //вызов событмия с прерыванием цикла
                     break;
                 }
                 count++;
             }
         }
 
-        public static void RemoveQueue(Queue<MyObject> obj, StopWhile stopping)
+        public static void RemoveQueue(ConcurrentQueue<MyObject> myObjects, StopWhile stopping)
         {
             if (stopping == null)
             {
                 throw new ArgumentNullException(nameof(stopping), "Property cannot be null or empty" + nameof(stopping) + " is null");
             }
-            if (obj.Count == 0)
+            if (myObjects.Count == 0)
             {
-                throw new ArgumentException("Queue<MyObject>.Count=0", nameof(obj));
+                throw new ArgumentException("Queue<MyObject>.Count=0", nameof(myObjects));
             }
-            while (obj.Count > 0) // цикл для очищения
+            while (myObjects.Count > 0) // цикл для очищения
             {
-                MyObject my = obj.Dequeue();
-                Console.WriteLine("Удален " + my.Info);
-                if (obj.Count == 0)
+                myObjects.TryDequeue(out MyObject myObject);
+                Console.WriteLine("Удален " + myObject.Info);
+                if (myObjects.Count == 0)
                 {
                     stopping?.Invoke("Событие-Обьекты удалены из очереди \n"); //вызов событмия с прерыванием цикла
                 }
@@ -84,21 +85,6 @@ namespace Events
         private static void EventStop(string str)
         {
             Console.WriteLine(str);
-        }
-
-        private class Test : INotifyPropertyChanged
-        {
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            public void NotifyPropertyChanged(string msg)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(msg));
-            }
-        }
-
-        public class MyObject
-        {
-            public string Info { get; set; }
         }
     }
 }

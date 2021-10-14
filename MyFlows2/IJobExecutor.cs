@@ -15,13 +15,19 @@ namespace Flows2
         /// </summary>
         public void Start(int maxConcurrent);
 
+        ///<summary>
         /// Остановить обработку очереди и выполнять задачи
+        /// </summary>
         public void Stop();
 
+        ///<summary>
         /// Добавить задачу в очередь
+        /// </summary>
         public void Add(Action action);
 
+        ///<summary>
         /// Очистить очередь задач
+        /// </summary>
         public void Clear();
     }
 }

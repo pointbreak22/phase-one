@@ -11,13 +11,8 @@ namespace IComparableInterface
         public int CompareTo(object o)
         {
             if (o is Triangle t)
-            {
-                return this.Hypotenuse.CompareTo(t.Hypotenuse);
-            }
-            else
-            {
-                throw new Exception("Невозможно сравнить два объекта");
-            }
+                return Hypotenuse.CompareTo(t.Hypotenuse);
+            throw new Exception("Невозможно сравнить два объекта");
         }
     }
 }

@@ -10,17 +10,10 @@ namespace IComparableInterface
             Debug.Assert(t1 != null, nameof(t1) + " != null");
             Debug.Assert(t2 != null, nameof(t2) + " != null");
             if (t1.Leg1 * t1.Leg2 > t2.Leg1 * t2.Leg2)
-            {
                 return 1;
-            }
-            else if (t1.Leg1 * t1.Leg2 < t2.Leg1 * t2.Leg2)
-            {
+            if (t1.Leg1 * t1.Leg2 < t2.Leg1 * t2.Leg2)
                 return -1;
-            }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
     }
 }

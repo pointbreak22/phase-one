@@ -11,10 +11,7 @@ namespace EqualsGetHashCode
 
         public override bool Equals(object obj)
         {
-            if (!(obj is Person person))
-            {
-                return false;
-            }
+            if (!(obj is Person person)) return false;
 
             return person.Fio == Fio && person.Date == Date && person.PlaceOfBirth == PlaceOfBirth;
         }

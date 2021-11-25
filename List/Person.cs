@@ -14,12 +14,13 @@ namespace List
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Person)obj);
+            return obj.GetType() == GetType() && Equals((Person) obj);
         }
 
         protected bool Equals(Person other)
         {
-            return Fio == other.Fio && Date.Equals(other.Date) && PlaceOfBirth == other.PlaceOfBirth && PassportNumber == other.PassportNumber && PlaceOfWork == other.PlaceOfWork;
+            return Fio == other.Fio && Date.Equals(other.Date) && PlaceOfBirth == other.PlaceOfBirth &&
+                   PassportNumber == other.PassportNumber && PlaceOfWork == other.PlaceOfWork;
         }
 
         public override int GetHashCode()

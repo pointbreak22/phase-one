@@ -8,7 +8,11 @@ namespace Serialization
     {
         private static void Main()
         {
-            JamesBondClass jbc = new JamesBondClass { CanFly = true, CanSubmerge = false, TheRadio = new Radio { StationPresets = new double[] { 89.3, 105.1, 97.1 }, HasSubWoofers = true } };
+            var jbc = new JamesBondClass
+            {
+                CanFly = true, CanSubmerge = false,
+                TheRadio = new Radio {StationPresets = new[] {89.3, 105.1, 97.1}, HasSubWoofers = true}
+            };
             // Сохранить объект в указанном файле в двоичном формате
             SaveBinaryFormat(jbc, "carData.dat");
             LoadFromBinaryFile("carData.dat");
@@ -17,25 +21,24 @@ namespace Serialization
 
         public static void SaveBinaryFormat(JamesBondClass jbc, string fileName)
         {
-            if (jbc == null)
-            {
-                throw new ArgumentNullException(nameof(jbc), "Object is null " + nameof(jbc));
-            }
-            BinaryFormatter binFormat = new BinaryFormatter();
+            if (jbc == null) throw new ArgumentNullException(nameof(jbc), "Object is null " + nameof(jbc));
+            var binFormat = new BinaryFormatter();
             using (Stream fStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 binFormat.Serialize(fStream, jbc);
             }
+
             Console.WriteLine("--> Сохранение объекта в Binary format");
         }
 
         public static void LoadFromBinaryFile(string fileName)
         {
-            BinaryFormatter binFormat = new BinaryFormatter();
+            var binFormat = new BinaryFormatter();
             using Stream fStream = File.OpenRead(fileName);
             {
-                JamesBondClass carFromDisk = (JamesBondClass)binFormat.Deserialize(fStream);
-                Console.WriteLine("Вывод при изьятии из файла " + carFromDisk.CanFly.ToString() + " " + carFromDisk.CanSubmerge.ToString() + " " + carFromDisk.TheRadio.StationPresets[0]);
+                var carFromDisk = (JamesBondClass) binFormat.Deserialize(fStream);
+                Console.WriteLine("Вывод при изьятии из файла " + carFromDisk.CanFly + " " + carFromDisk.CanSubmerge +
+                                  " " + carFromDisk.TheRadio.StationPresets[0]);
             }
         }
     }

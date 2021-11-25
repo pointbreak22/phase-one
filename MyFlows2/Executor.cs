@@ -1,18 +1,19 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Flows2
+namespace MyFlows2
 {
-    internal class Executor : IJobExecutor              //////Íàñëåäíèê
+    internal class Executor : IJobExecutor //////ÐÐ°ÑÐ»ÐµÐ´Ð½Ð¸Ðº
     {
         public CancellationTokenSource CancellationTokenSource { get; set; }
-        public CancellationToken Token { get { return CancellationTokenSource.Token; } set { } }
+
+        private CancellationToken Token => CancellationTokenSource.Token;
+
         public ConcurrentQueue<Task> TaskQueue { get; set; }
-        public int Amount { get { return TaskQueue.Count(); } }
+        public int Amount => TaskQueue.Count();
 
         public void Start(int maxConcurrent)
         {
@@ -23,10 +24,10 @@ namespace Flows2
                 {
                     semaphore.WaitOne();
 
-                    if (TaskQueue.TryPeek(out Task task))
+                    if (TaskQueue.TryPeek(out var task))
                     {
                         TaskQueue.TryDequeue(out task);
-                        task.Start();
+                        if (task != null) task.Start();
                     }
                 }
             }

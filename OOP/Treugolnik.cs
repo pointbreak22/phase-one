@@ -6,7 +6,7 @@ namespace OOP
     {
         public void SAreaOfTriangle(double a, double h)
         {
-            Console.WriteLine("Площадь треугольника =" + ((a * h) / 2.0).ToString("N"));
+            Console.WriteLine("Площадь треугольника =" + (a * h / 2.0).ToString("N"));
         }
     }
 }

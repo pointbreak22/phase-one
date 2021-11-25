@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Regular_expression
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main()
         {
@@ -18,35 +18,29 @@ namespace Regular_expression
         private static void Method1()
         {
             const string stringLine = "1, 1000, 1 000 000, 100.23";
-            Regex regex = new Regex(@"(\d{1,3}\s(\d{3}\s?)*)|(\d+\.\d+)|\d+");
-            MatchCollection matches = regex.Matches(stringLine);
+            var regex = new Regex(@"(\d{1,3}\s(\d{3}\s?)*)|(\d+\.\d+)|\d+");
+            var matches = regex.Matches(stringLine);
             if (matches.Count > 0)
-            {
                 foreach (Match match in matches)
-                {
                     Console.WriteLine(match.Value);
-                }
-            }
             else
-            {
                 Console.WriteLine("Совпадений не найдено");
-            }
         }
 
         private static void Method2()
         {
             const string s = "Мама  мыла  раму. ";
-            string pattern = @"\s+";
+            var pattern = @"\s+";
             const string target = " ";
-            Regex regex = new Regex(pattern);
-            string result = regex.Replace(s, target);
+            var regex = new Regex(pattern);
+            var result = regex.Replace(s, target);
             Console.WriteLine(result);
         }
 
         private static void Method3()
         {
             Console.WriteLine("Введите номер телефона");
-            string number = Console.ReadLine();
+            var number = Console.ReadLine();
             const string reg = @"(\+\d{3}\s\d{8})|(0\s\(\d{3}\)\s\d{5})|\d{8}";
             Console.WriteLine(
                 Regex.IsMatch(number ?? string.Empty, reg)

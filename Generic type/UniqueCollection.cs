@@ -22,12 +22,13 @@ namespace Generic_type
             try
             {
                 if (_items.Contains(item))
-                {
-                    throw new Exception("Итем: " + item?.ToString() + " повторяется");
-                }
-                else _items.Add(item);
+                    throw new Exception("Итем: " + item + " повторяется");
+                _items.Add(item);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message.ToString()); }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void Clear()
